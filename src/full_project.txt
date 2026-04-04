@@ -1,0 +1,2291 @@
+DIRECTORY TREE:
+├── public/
+│   ├── script.js
+│   ├── style.css
+├── src/
+│   ├── components/
+│   │   ├── BackButton.astro
+│   │   ├── Footer.astro
+│   │   ├── Header.astro
+│   │   ├── Navbar.astro
+│   │   ├── sections/
+│   │   │   ├── AboutSection.astro
+│   │   │   ├── AccessPermissionSection.astro
+│   │   │   ├── ContactSection.astro
+│   │   │   ├── ExamplesSection.astro
+│   │   │   ├── ExperienceSection.astro
+│   │   │   ├── FAQSection.astro
+│   │   │   ├── HeroSummary.astro
+│   │   │   ├── ProcessSection.astro
+│   │   │   ├── ServicesSection.astro
+│   ├── layouts/
+│   │   ├── MainLayout.astro
+│   ├── pages/
+│   │   ├── about.astro
+│   │   ├── access-permission.astro
+│   │   ├── examples.astro
+│   │   ├── index.astro
+│   │   ├── process.astro
+│   │   ├── services.astro
+
+################################################################################
+ALL FILE CONTENTS:
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\public\style.css
+
+================================================================================
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+    line-height: 1.7;
+    font-size: 17px;
+    color: #1f1f1f;
+    padding-top: 0;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #0b3d6b;
+    position: relative;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #0b3d6b;
+  margin-top: 6px;
+}
+
+p {
+    margin-bottom: 15px
+}
+
+@media (max-width:768px) {
+    body {
+        font-size: 16.5px
+    }
+
+    h1 {
+        font-size: 24px
+    }
+
+    h2 {
+        font-size: 20px
+    }
+}
+
+section:not(.hero):nth-of-type(even) {
+  background: #f8fafc   ;
+}
+
+section:not(.hero):nth-of-type(odd) {
+  background: #ffffff;
+}
+
+.process li,
+.services li {
+    margin-bottom: 10px
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 0 16px;
+}
+
+.hidden {
+    display: none
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    height: 80px;
+    background: #0b3d6b;
+    color: #fff;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.logo-img {
+    height: 60%;
+    max-height: 48px;
+    width: auto;
+    background: #fff;
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25)
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.logo .brand {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 1.1
+}
+
+.logo .tagline {
+    font-size: 13px
+}
+
+.tagline {
+    font-size: clamp(11px, 1.5vw, 13px);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width:500px) {
+    .tagline {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+    }
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px
+}
+
+.lang-btn {
+    margin-left: 20px;
+    background: #fff;
+    color: #0b3d6b;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.header-lang {
+    margin-left: 15px
+}
+
+@media (max-width:768px) {
+    .header-lang {
+        margin-right: 10px
+    }
+}
+
+.hero { 
+    background: linear-gradient(to right, #f1f5f9, #dbeafe);
+    padding: 50px 0 55px 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-note {
+    margin-top: 18px;
+    font-weight: 600;
+    color: #0b3d6b
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 15px auto 0 auto
+}
+
+.hero h1 {
+    color: #0b3d6b;
+    margin-bottom: 10px
+}
+
+section {
+    padding: 1px 0 30px 0;
+    border-bottom: 1px solid #e6edf5;
+    scroll-margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+    section {
+        scroll-margin-top: 160px;
+    }
+}
+
+.process ol,
+.services ul {
+    padding-left: 20px
+}
+
+.after-noc {
+    background: #eef4ff;
+    border-left: 4px solid #0b3d6b;
+    padding: 16px 18px;
+    margin-top: 28px;
+    border-radius: 6px;
+    font-size: .98em
+}
+
+.after-noc strong {
+    color: #0b3d6b
+}
+
+.contact a {
+    color: #0b3d6b;
+    text-decoration: none;
+    font-weight: 700
+}
+
+.examples {
+    background: #fff;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 20px
+}
+
+.gallery a {
+    display: block
+}
+
+.gallery img {
+    transition: transform .3s ease;
+    cursor: zoom-in
+}
+
+.gallery img:hover {
+    transform: scale(1.03)
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.examples-grid img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.examples-grid img:hover {
+  transform: scale(1.03);
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .82);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#lightbox-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 6px;
+}
+
+.lightbox.active {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 6px;
+    transform: scale(.92);
+    opacity: 0;
+    transition: transform .25s ease, opacity .25s ease;
+    user-select: none;
+    will-change: transform;
+    touch-action: none;
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, .65);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    transition: transform .15s ease, background .2s ease;
+}
+
+@media (max-width:768px) {
+    .lightbox .close {
+        top: 14px;
+        right: 14px;
+    }
+}
+
+.lightbox .close:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, .8)
+}
+
+.gallery-img {
+    cursor: zoom-in;
+    transition: transform .3s ease
+}
+
+.gallery-img:hover {
+    transform: scale(1.03)
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+    margin: 0 0 25px 0;
+    padding: 5px;
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover
+}
+
+.card p {
+    padding: 12px 14px 16px 14px;
+}
+
+@media (min-width:900px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+.float-call,
+.float-wa {
+    position: fixed;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
+    border: 2px solid rgba(255, 255, 255, .25);
+    transition: transform .2s ease, opacity .3s ease;
+    z-index: 5
+}
+
+.float-call:active,
+.float-wa:active {
+    transform: scale(.92)
+}
+
+@media (hover:hover) {
+
+    .float-call:hover,
+    .float-wa:hover {
+        transform: scale(1.08)
+    }
+}
+
+.float-call {
+    bottom: 110px;
+    background: #0b3d6b
+}
+
+.float-wa {
+    bottom: 30px;
+    background: #25d366
+}
+
+@media (max-width:768px) {
+    .header {
+        height: 72px;
+    }
+}
+
+@media (max-width:768px) {
+    .mobile-nav {
+        position: sticky;
+        top: 72px;
+        background: #fff;
+        border-bottom: 1px solid #e2e8f0;
+        z-index: 2999;
+    }
+
+    .mobile-nav .container {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px 16px;
+    }
+
+    .mobile-nav a {
+        background: #f1f5fb;
+        color: #0b3d6b;
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        flex: 0 0 auto;
+    }
+}
+
+@media (min-width:769px) {
+    .mobile-nav {
+        position: sticky;
+        top: 79px;
+        background: #0b3d6b;
+        z-index: 4999;
+        padding: 10px 0;
+    }
+
+    .mobile-nav .container {
+        display: flex;
+        justify-content: center;
+        gap: 26px;
+    }
+
+    .mobile-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .mobile-nav a:hover {
+        text-decoration: underline;
+    }
+}
+
+.nhai-ref {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px
+}
+
+.nhai-text {
+    flex: 1
+}
+
+.nhai-logo {
+    height: 80px;
+    width: auto;
+    opacity: .9
+}
+
+.nhai-note {
+    font-size: 14px;
+    color: #4a5568
+}
+
+@media (max-width:768px) {
+    .nhai-ref {
+        flex-direction: column;
+        text-align: center
+    }
+
+    .nhai-logo {
+        height: 65px;
+        margin-top: 8px
+    }
+}
+
+.hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px
+}
+
+.hero-content {
+    flex: 1
+}
+
+.hero-nhai img {
+    height: 100px;
+    width: auto;
+    opacity: .9;
+    display: block;
+    max-width: 100%;
+    margin-top: 21px
+}
+
+.hero-nhai {
+    position: relative;
+    z-index: 1
+}
+
+.hero {
+    overflow: hidden
+}
+
+@media (max-width:768px) {
+    .hero-layout {
+        flex-direction: column;
+        text-align: center
+    }
+
+    .hero-nhai img {
+        height: 80px;
+        margin-top: 0
+    }
+}
+
+.about p,
+.access-permission p,
+.contact p,
+.experience p,
+.process li,
+.process p,
+.services li,
+.services p {
+    text-align: justify
+}
+
+@media (min-width:769px) {
+
+    .float-call,
+    .float-wa {
+        display: none
+    }
+}
+
+.faq-grid {
+    display: grid;
+    column-count: 1;
+    column-gap: 18px;
+    margin-top: 20px
+}
+
+@media (min-width:900px) {
+    .faq-grid {
+        column-count: 2;
+        align-items: start
+    }
+}
+
+.faq-box summary span {
+    pointer-events: none
+}
+
+.faq-box {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e3e8f0;
+    background: #fff;
+    transition: box-shadow .25s ease;
+    break-inside: avoid;
+    margin-bottom: 18px
+}
+
+.faq-box summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eaf2fb;
+    color: #0b3d6b;
+    padding: 14px 16px;
+    font-weight: 600
+}
+
+.faq-box summary::-webkit-details-marker {
+    display: none
+}
+
+.faq-box p {
+    padding: 14px 16px;
+    margin: 0;
+    background: #f8fafc
+}
+
+.faq-box[open] {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12)
+}
+
+.faq-box summary::after {
+    content: "+";
+    font-size: 20px;
+    line-height: 1
+}
+
+.faq-box[open] summary::after {
+    content: "−"
+}
+
+.footer {
+    background: #0b3d6b;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    font-size: 14px
+}
+
+.footer p {
+    margin: 0
+}
+
+.mobile-break {
+    display: none
+}
+
+@media (max-width:768px) {
+    .mobile-break {
+        display: block
+    }
+}
+
+/* Back Button */
+.back-btn-container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #0b3d6b;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #0b3d6b;
+}
+
+.page-top-space {
+    margin-top: 40px;
+}
+
+.read-more-btn {
+  background: #0b3d6b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.read-more-btn:hover {
+  background: #082c4d;
+}
+
+.access-full {
+    margin-top: 10px;
+}
+
+.services-full {
+    margin-top: 10px;
+}
+
+.process-full {
+    margin-top: 10px;
+}
+
+.site-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-main {
+    flex: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* FAQ */
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer.active {
+  max-height: 500px;
+  margin-bottom: 10px;
+}
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\public\script.js
+
+================================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const toggle = document.getElementById("langToggle");
+
+  // Load from session (default = English)
+  let isHindi = sessionStorage.getItem("lang") === "hi";
+
+  // Function to apply language
+  function applyLanguage() {
+    document.querySelectorAll(".en").forEach(e =>
+      e.classList.toggle("hidden", isHindi)
+    );
+
+    document.querySelectorAll(".hi").forEach(e =>
+      e.classList.toggle("hidden", !isHindi)
+    );
+
+    if (toggle) {
+      if (isHindi) {
+        toggle.textContent = "English";
+        document.documentElement.lang = "hi-IN";
+      } else {
+        toggle.textContent = "हिन्दी";
+        document.documentElement.lang = "en-IN";
+      }
+    }
+  }
+
+  // ✅ Apply on page load
+  applyLanguage();
+
+  // ✅ Toggle click
+  if (toggle) {
+    toggle.onclick = () => {
+      isHindi = !isHindi;
+
+      // Save in session
+      sessionStorage.setItem("lang", isHindi ? "hi" : "en");
+
+      applyLanguage();
+    };
+  }
+
+  /* Image Lightbox */
+  const images = document.querySelectorAll(".gallery-img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.querySelector(".close");
+
+  // ✅ Only run if lightbox exists
+  if (images.length && lightbox && lightboxImg && closeBtn) {
+
+    images.forEach(img => {
+      img.addEventListener("click", () => {
+
+        scale = 1;
+        originX = 0;
+        originY = 0;
+
+        lightboxImg.style.transform = "translate(0px,0px) scale(1)";
+        lightbox.classList.add("active");
+        lightboxImg.src = img.src;
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "auto";
+
+      scale = 1;
+      originX = 0;
+      originY = 0;
+
+      lightboxImg.style.transform = "translate(0px,0px) scale(1)";
+    }
+
+    closeBtn.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+
+  }
+
+  /* Hide Floating Buttons Near Contact Section */
+  const contactSection = document.getElementById("contact");
+  const floatCall = document.querySelector(".float-call");
+  const floatWa = document.querySelector(".float-wa");
+
+  function handleFloatingButtons() {
+    if (!contactSection || !floatCall || !floatWa) return;
+
+    const rect = contactSection.getBoundingClientRect();
+
+    const triggerPoint = window.innerHeight * 0.6; // middle-ish
+
+    if (rect.top < triggerPoint) {
+      // Hide buttons
+      floatCall.style.opacity = "0";
+      floatWa.style.opacity = "0";
+      floatCall.style.pointerEvents = "none";
+      floatWa.style.pointerEvents = "none";
+    } else {
+      // Show buttons
+      floatCall.style.opacity = "1";
+      floatWa.style.opacity = "1";
+      floatCall.style.pointerEvents = "auto";
+      floatWa.style.pointerEvents = "auto";
+    }
+  }
+
+  // Run on scroll
+  window.addEventListener("scroll", handleFloatingButtons);
+
+  // Run once on load
+  handleFloatingButtons();
+
+  /* Lightbox image zoom and drag */
+  const lightboxImage = document.getElementById("lightbox-img");
+
+  // ✅ Only run if lightbox exists
+  if (lightboxImage && lightbox) {
+    document.addEventListener("wheel", function (e) {
+      if (e.ctrlKey === true) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    let scale = 1;
+    let startX = 0;
+    let startY = 0;
+    let originX = 0;
+    let originY = 0;
+    let isDragging = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let startDistance = 0;
+
+    lightboxImage.style.cursor = "grab"; // Line 151
+
+    lightboxImage.addEventListener("dragstart", (e) => e.preventDefault());
+
+    function clampPosition() {
+
+      const rect = lightboxImage.getBoundingClientRect();
+      const maxX = (rect.width * scale - rect.width) / 2;
+      const maxY = (rect.height * scale - rect.height) / 2;
+
+      originX = Math.min(Math.max(originX, -maxX), maxX);
+      originY = Math.min(Math.max(originY, -maxY), maxY);
+    }
+
+    lightboxImage.addEventListener("wheel", (e) => {
+      if (!lightbox.classList.contains("active")) return;
+      e.preventDefault();
+
+      const rect = lightboxImage.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+
+      const prevScale = scale;
+      const zoomSpeed = 0.05;
+
+      if (e.deltaY < 0) scale += zoomSpeed;
+      else scale -= zoomSpeed;
+
+      scale = Math.min(Math.max(1, scale), 4);
+
+      const scaleRatio = scale / prevScale;
+
+      originX -= (mouseX - originX) * (scaleRatio - 1);
+      originY -= (mouseY - originY) * (scaleRatio - 1);
+
+      if (scale === 1) {
+        originX = 0;
+        originY = 0;
+      }
+
+      clampPosition();
+
+      lightboxImage.style.transform =
+        `translate(${originX}px, ${originY}px) scale(${scale})`;
+    }, { passive: false });
+
+    lightboxImage.addEventListener("mousedown", (e) => {
+      if (scale === 1) return;
+
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      lightboxImage.style.cursor = "grabbing";
+    });
+
+    lightboxImage.addEventListener("touchstart", (e) => {
+
+      if (e.touches.length === 1) {
+
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+
+      }
+
+      if (e.touches.length === 2) {
+
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+
+        startDistance = Math.sqrt(dx * dx + dy * dy);
+
+      }
+
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      originX += dx;
+      originY += dy;
+
+      startX = e.clientX;
+      startY = e.clientY;
+
+      clampPosition();
+
+      lightboxImage.style.transform =
+        `translate(${originX}px, ${originY}px) scale(${scale})`;
+    });
+
+    lightboxImage.addEventListener("touchmove", (e) => {
+
+      e.preventDefault();
+
+      /* ONE FINGER PAN */
+      if (e.touches.length === 1 && scale > 1) {
+
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+
+        originX += dx;
+        originY += dy;
+
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+
+        clampPosition();
+
+        lightboxImage.style.transform =
+          `translate(${originX}px, ${originY}px) scale(${scale})`;
+
+      }
+
+      /* TWO FINGER PINCH ZOOM */
+      if (e.touches.length === 2) {
+
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+
+        const newDistance = Math.sqrt(dx * dx + dy * dy);
+
+        const delta = newDistance - startDistance;
+
+        const zoomSpeed = 0.005;
+
+        scale += delta * zoomSpeed;
+
+        scale = Math.min(Math.max(1, scale), 4);
+
+        if (scale === 1) {
+          originX = 0;
+          originY = 0;
+        }
+
+        clampPosition();
+
+        lightboxImage.style.transform =
+          `translate(${originX}px, ${originY}px) scale(${scale})`;
+
+        startDistance = newDistance;
+
+      }
+
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (!lightbox.classList.contains("active")) return;
+
+      isDragging = false;
+      lightboxImage.style.cursor = "grab";
+    });
+
+    lightboxImage.addEventListener("touchend", () => {
+
+      if (scale === 1) {
+        originX = 0;
+        originY = 0;
+
+        lightboxImage.style.transform =
+          "translate(0px,0px) scale(1)";
+      }
+
+    });
+
+    scale = 1;
+    originX = 0;
+    originY = 0;
+    lightboxImage.style.transform = "translate(0px,0px) scale(1)";
+  }
+
+  /* FAQ Accordion */
+  const faqButtons = document.querySelectorAll(".faq-question");
+
+  faqButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const answer = btn.nextElementSibling;
+
+      answer.classList.toggle("active");
+
+      document.querySelectorAll(".faq-answer").forEach(a => {
+        if (a !== answer) a.classList.remove("active");
+      });
+    });
+  });
+
+})
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\BackButton.astro
+
+================================================================================
+
+---
+const { section = "" } = Astro.props;
+const href = section ? `/#${section}` : "/";
+---
+
+<div class="back-btn-wrapper">
+    <a href={href} class="back-btn">
+      ← <span class="en">Back to Home</span>
+      <span class="hi hidden">मुखपृष्ठ पर वापस</span>
+    </a>
+</div>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\Footer.astro
+
+================================================================================
+
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+
+    <p class="en">
+      © {year} Shridhar Consultants – NHAI NOC & Highway Access Permission Consultancy. All rights reserved.
+    </p>
+
+    <p class="hi hidden">
+      © {year} Shridhar Consultants – NHAI NOC एवं हाईवे अनुमति परामर्श सेवा। सर्वाधिकार सुरक्षित।
+    </p>
+
+  </div>
+</footer>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\Header.astro
+
+================================================================================
+
+<header class="header">
+  <div class="container nav-container">
+    
+    <div class="logo">
+      <img src="/images/logo.svg" alt="M/s Shridhar Consultants Logo" class="logo-img" />
+      
+      <div class="logo-text">
+        <span class="brand">
+          M/s Shridhar<span class="mobile-break"></span> Consultants
+        </span>
+        <span class="tagline">
+          NHAI NOC & Highway Access Permission Consultancy
+        </span>
+      </div>
+    </div>
+
+    <button id="langToggle" class="lang-btn header-lang">
+      हिन्दी
+    </button>
+
+  </div>
+</header>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\Navbar.astro
+
+================================================================================
+
+<nav id="nav-menu" class="mobile-nav">
+  <div class="container nav-inner">
+
+    <a href="/#home">
+      <span class="en">Home</span>
+      <span class="hi hidden">मुखपृष्ठ</span>
+    </a>
+
+    <a href="/#access-permission">
+      <span class="en">Access Permission</span>
+      <span class="hi hidden">हाईवे एक्सेस</span>
+    </a>
+
+    <a href="/#services">
+      <span class="en">Services</span>
+      <span class="hi hidden">सेवाएँ</span>
+    </a>
+
+    <a href="/#process">
+      <span class="en">Process</span>
+      <span class="hi hidden">प्रक्रिया</span>
+    </a>
+
+    <a href="/#experience">
+      <span class="en">Experience</span>
+      <span class="hi hidden">अनुभव</span>
+    </a>
+
+    <a href="/#examples">
+      <span class="en">Examples</span>
+      <span class="hi hidden">उदाहरण</span>
+    </a>
+
+    <a href="/#faq">
+      <span class="en">FAQ</span>
+      <span class="hi hidden">FAQ</span>
+    </a>
+
+    <a href="#contact">
+      <span class="en">Contact</span>
+      <span class="hi hidden">संपर्क</span>
+    </a>
+
+  </div>
+
+</nav>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\AboutSection.astro
+
+================================================================================
+
+---
+const { mode = "summary", readMoreLink = "/about" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "about"} class="about">
+  <div class="container">
+
+    <h2 class="en">About Us</h2>
+    <h2 class="hi hidden">हमारे बारे में</h2>
+
+    <!-- SHORT CONTENT -->
+    <p class="en">
+      Shridhar Consultants assists individuals, companies and contractors in obtaining No Objection Certificate (NOC)
+      from NHAI for construction, access and utility crossings along National Highways in Haryana, Punjab and Delhi NCR.
+      With more than two decades of experience, we guide clients through documentation, drawings and approval
+      procedures.
+    </p>
+
+    <p class="hi hidden">
+      Shridhar Consultants व्यक्तियों, कंपनियों तथा ठेकेदारों को हरियाणा, पंजाब एवं दिल्ली एनसीआर में नेशनल हाईवे के साथ
+      या उसके पार निर्माण, प्रवेश मार्ग तथा विभिन्न यूटिलिटी क्रॉसिंग के लिए NHAI से अनापत्ति प्रमाण पत्र (NOC) प्राप्त
+      करने में सहायता प्रदान करता है। दो दशकों से अधिक अनुभव के साथ हम दस्तावेज़, ड्रॉइंग और अनुमोदन प्रक्रिया में
+      मार्गदर्शन करते हैं।
+    </p>
+
+    <!-- FULL CONTENT (only if full mode) -->
+    {isFull && (
+    <div class="about-full">
+      <p class="en">
+        Shridhar Consultants is a trusted consultancy firm specializing in obtaining No Objection Certificates (NOC)
+        from the National Highways Authority of India (NHAI). We assist individuals, companies, developers, and
+        contractors in securing approvals for construction, access permissions, and utility crossings along or across
+        National Highways in Haryana, Punjab, and Delhi NCR.
+      </p>
+
+      <p class="hi hidden">
+        Shridhar Consultants एक विश्वसनीय कंसल्टेंसी फर्म है, जो नेशनल हाईवे अथॉरिटी ऑफ इंडिया (NHAI) से अनापत्ति प्रमाण
+        पत्र (NOC) प्राप्त करने में विशेषज्ञता रखती है। हम व्यक्तियों, कंपनियों, डेवलपर्स और ठेकेदारों को हरियाणा, पंजाब
+        और दिल्ली एनसीआर में राष्ट्रीय राजमार्गों के साथ या उनके पार निर्माण, एक्सेस अनुमति और यूटिलिटी क्रॉसिंग के लिए
+        सहायता प्रदान करते हैं।
+      </p>
+
+      <p class="en">
+        With over 20 years of experience, we provide end-to-end support including documentation preparation, technical
+        drawing design as per NHAI standards, application submission, and continuous follow-up with authorities to
+        ensure timely approvals.
+      </p>
+
+      <p class="hi hidden">
+        20 वर्षों से अधिक अनुभव के साथ, हम दस्तावेज़ तैयार करने, NHAI मानकों के अनुसार तकनीकी ड्रॉइंग बनाने, आवेदन जमा
+        करने तथा संबंधित अधिकारियों के साथ निरंतर फॉलो-अप सहित पूर्ण सहायता प्रदान करते हैं, ताकि समय पर अनुमोदन प्राप्त
+        हो सके।
+      </p>
+
+      <p class="en">
+        Our services cover access permissions, construction approvals near highways, and utility crossings such as water
+        pipelines, sewer lines, electrical cables, optical fiber cables (OFC), gas pipelines, and drainage systems for
+        residential, commercial, and industrial projects.
+      </p>
+
+      <p class="hi hidden">
+        हमारी सेवाओं में एक्सेस अनुमति, राष्ट्रीय राजमार्ग के पास निर्माण स्वीकृति, तथा जल पाइपलाइन, सीवर लाइन, बिजली
+        केबल, ऑप्टिकल फाइबर केबल (OFC), गैस पाइपलाइन और ड्रेनेज सिस्टम जैसी यूटिलिटी क्रॉसिंग शामिल हैं, जो आवासीय,
+        वाणिज्यिक और औद्योगिक परियोजनाओं के लिए आवश्यक होती हैं।
+      </p>
+
+      <p class="en">
+        We ensure that all submissions are accurate, compliant, and aligned with regulatory requirements, minimizing
+        delays and increasing the chances of approval success.
+      </p>
+
+      <p class="hi hidden">
+        हम सुनिश्चित करते हैं कि सभी आवेदन सटीक, नियमों के अनुरूप और पूर्ण हों, जिससे देरी कम हो और अनुमोदन मिलने की
+        संभावना बढ़े।
+      </p>
+
+      <p class="en">
+        At Shridhar Consultants, we are committed to delivering reliable, transparent, and efficient services, helping
+        clients complete their projects smoothly and without complications.
+      </p>
+
+      <p class="hi hidden">
+        Shridhar Consultants में हम विश्वसनीय, पारदर्शी और प्रभावी सेवाएँ प्रदान करने के लिए प्रतिबद्ध हैं, जिससे हमारे
+        ग्राहक अपनी परियोजनाओं को सरलता और सफलता के साथ पूरा कर सकें।
+      </p>
+
+      <p class="en">
+        Refer official guidelines:
+        <a href="/documents/nhai-guidelines.pdf" target="_blank">
+          Download Latest NHAI NOC Guidelines
+        </a>
+      </p>
+
+      <p class="hi hidden">
+        आधिकारिक दिशा-निर्देश देखें:
+        <a href="/documents/nhai-guidelines.pdf" target="_blank">
+          NHAI दिशा-निर्देश डाउनलोड करें
+        </a>
+      </p>
+    </div>
+    )}
+
+    <!-- READ MORE (only in summary mode) -->
+    {!isFull && (
+    <a href={readMoreLink} class="read-more-btn">
+      <span class="en">Read More</span>
+      <span class="hi hidden">और पढ़ें</span>
+    </a>
+    )}
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\AccessPermissionSection.astro
+
+================================================================================
+
+---
+const { mode = "summary", readMoreLink = "/access-permission" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "access-permission"} class="access-permission">
+  <div class="container">
+
+    <h2 class="en">NHAI Access Permission for Property & Retail Outlet</h2>
+    <h2 class="hi hidden">निजी संपत्ति एवं रिटेल आउटलेट के लिए NHAI एक्सेस अनुमति</h2>
+
+    <!-- SUMMARY CONTENT -->
+    <p class="en">
+      Access from a private property or retail outlet (petrol pump) to a National Highway requires
+      approval from NHAI as per applicable MoRTH guidelines.
+    </p>
+
+    <p class="hi hidden">
+      निजी संपत्ति या पेट्रोल पंप से नेशनल हाईवे तक प्रवेश मार्ग (Access) बनाने के लिए NHAI की
+      अनुमति आवश्यक होती है, जो MoRTH दिशानिर्देशों के अनुसार जारी की जाती है।
+    </p>
+
+    {isFull && (
+      <div class="access-full">
+
+        <p class="en">
+          Proper drawings, documentation and portal submission are required for obtaining the NHAI
+          No Objection Certificate (NOC).
+        </p>
+
+        <p class="hi hidden">
+          इसके लिए आवश्यक ड्रॉइंग, दस्तावेज़ तथा ऑनलाइन पोर्टल पर आवेदन प्रक्रिया पूरी करनी होती है।
+        </p>
+
+        <p class="en">
+          Shridhar Consultants assists clients in preparing drawings, documentation and submission of
+          proposals for highway access permissions in Haryana, Punjab and Delhi NCR.
+        </p>
+
+        <p class="hi hidden">
+          Shridhar Consultants हरियाणा, पंजाब एवं दिल्ली एनसीआर में हाईवे एक्सेस अनुमति के लिए आवश्यक
+          ड्रॉइंग, दस्तावेज़ तथा ऑनलाइन पोर्टल पर आवेदन प्रक्रिया में सहायता प्रदान करता है।
+        </p>
+
+      </div>
+    )}
+
+    {/* READ MORE (only summary) */}
+    {!isFull && (
+      <a href={readMoreLink} class="read-more-btn">
+        <span class="en">Read More</span>
+        <span class="hi hidden">और पढ़ें</span>
+      </a>
+    )}
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\ContactSection.astro
+
+================================================================================
+
+<section id="contact" class="contact">
+  <div class="container">
+
+    <h2 class="en">Contact Us</h2>
+    <h2 class="hi hidden">संपर्क</h2>
+
+    <p class="en"><strong>Proprietor:</strong> Mrs. Renu Bala</p>
+    <p class="hi hidden"><strong>स्वामिनी:</strong> Mrs. Renu Bala</p>
+
+    <p class="en">
+      <strong>Call:</strong>
+      <a href="tel:+917988008722">+91 79880 08722</a>
+    </p>
+
+    <p class="hi hidden">
+      <strong>फ़ोन:</strong>
+      <a href="tel:+917988008722">+91 79880 08722</a>
+    </p>
+
+    <p class="en">
+      <strong>WhatsApp:</strong>
+      <a href="https://wa.me/919416665796" target="_blank" rel="noopener noreferrer">
+        +91 94166 65796
+      </a>
+    </p>
+
+    <p class="hi hidden">
+      <strong>व्हाट्सऐप:</strong>
+      <a href="https://wa.me/919416665796" target="_blank" rel="noopener noreferrer">
+        +91 94166 65796
+      </a>
+    </p>
+
+    <p class="en">
+      <strong>Address:</strong>
+      #17/7, New Partap Nagar, Behind Vita Milk Plant, Ambala City, Haryana - 134007
+      <br />
+      <strong>Google Maps:</strong>
+      <a href="https://maps.app.goo.gl/a6M29N3JAuw6xX6FA" target="_blank" rel="noopener noreferrer">
+        Shridhar Consultants
+      </a>
+    </p>
+
+    <p class="hi hidden">
+      <strong>पता:</strong>
+      #17/7, New Partap Nagar, Behind Vita Milk Plant, Ambala City, Haryana - 134007
+      <br />
+      <strong>Google Maps:</strong>
+      <a href="https://maps.app.goo.gl/a6M29N3JAuw6xX6FA" target="_blank" rel="noopener noreferrer">
+        Shridhar Consultants
+      </a>
+    </p>
+
+    <p class="en"><strong>Working Hours:</strong> Mon–Sat, 10:00 AM – 6:00 PM</p>
+    <p class="hi hidden"><strong>कार्य समय:</strong> सोम–शनि, 10:00 AM – 6:00 PM</p>
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\ExamplesSection.astro
+
+================================================================================
+
+---
+const { mode = "summary" } = Astro.props;
+const isFull = mode === "full";
+
+const examples = [
+  {
+    src: "/images/example1.jpg",
+    alt: "NHAI access permission layout plan drawing for a petrol pump retail outlet along a National Highway",
+    en: "Technical layout plan drawing showing proposed petrol pump access to a National Highway.",
+    hi: "नेशनल हाईवे से प्रस्तावित पेट्रोल पंप एक्सेस को दर्शाने वाली तकनीकी लेआउट योजना ड्रॉइंग।",
+  },
+  {
+    src: "/images/example2.jpg",
+    alt: "Constructed access road connecting private property to a National Highway",
+    en: "Example of constructed highway access connecting a private property to a National Highway.",
+    hi: "निजी संपत्ति को नेशनल हाईवे से जोड़ने वाले निर्मित एक्सेस मार्ग का उदाहरण।",
+  },
+  {
+    src: "/images/example3.jpg",
+    alt: "Constructed access to private property from a National Highway with RCC slab culvert",
+    en: "Example of constructed access to a private property from a National Highway including an RCC slab culvert.",
+    hi: "नेशनल हाईवे से निजी संपत्ति के लिए निर्मित एक्सेस मार्ग का उदाहरण, जिसमें आरसीसी स्लैब कलवर्ट बनाया गया है।",
+  },
+];
+
+// Summary limit
+const displayExamples = isFull ? examples : examples.slice(0, 2);
+---
+
+<section id={isFull ? undefined : "examples"} class="examples">
+  <div class="container">
+    <h2 class="en">Examples of NHAI Access & Utility Permission Work</h2>
+    <h2 class="hi hidden">हाईवे एक्सेस एवं यूटिलिटी अनुमति कार्य के उदाहरण</h2>
+    <p class="en">
+      Examples of typical highway access and utility permission work handled:
+    </p>
+    <p class="hi hidden">
+      हाईवे एक्सेस एवं यूटिलिटी अनुमति से संबंधित सामान्य कार्यों के उदाहरण:
+    </p>
+
+    <div class="examples-grid">
+      {
+        displayExamples.map((item) => (
+          <div class="card">
+            <img
+              src={item.src}
+              alt={item.alt}
+              width="400"
+              height="300"
+              loading="lazy"
+              class="gallery-img"
+            />
+
+            <p class="en">{item.en}</p>
+            <p class="hi hidden">{item.hi}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* READ MORE (only summary) */}
+    {
+      !isFull && (
+        <a href="/examples" class="read-more-btn">
+          <span class="en">View More</span>
+          <span class="hi hidden">और देखें</span>
+        </a>
+      )
+    }
+  </div>
+</section>
+
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\ExperienceSection.astro
+
+================================================================================
+
+---
+const { mode = "summary", readMoreLink = "/experience" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "experience"} class="experience">
+  <div class="container">
+    <h2 class="en">Experience</h2>
+    <h2 class="hi hidden">अनुभव</h2>
+    <p class="en">
+      Working since 2005 across Haryana, Punjab and Delhi NCR. Numerous cases
+      handled related to highway access permissions, retail outlet approvals and
+      utility crossings.
+    </p>
+    <p class="hi hidden">
+      वर्ष 2005 से हरियाणा, पंजाब एवं दिल्ली एनसीआर में कार्यरत। हाईवे एक्सेस
+      अनुमति, रिटेल आउटलेट अनुमोदन और यूटिलिटी क्रॉसिंग से संबंधित अनेक मामलों
+      का अनुभव।
+    </p>
+  </div>
+</section>
+
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\FAQSection.astro
+
+================================================================================
+
+---
+const faqs = [
+  {
+    enQ: "What is NHAI NOC and when is it required for properties along National Highways?",
+    hiQ: "NHAI NOC क्या होता है और नेशनल हाईवे के पास स्थित संपत्ति के लिए इसकी आवश्यकता कब होती है?",
+    enA: "NHAI NOC (No Objection Certificate) is required when any property, petrol pump, or utility service needs access to or crosses the Right of Way (ROW) of a National Highway. Approval from NHAI is mandatory before constructing an entry or exit road, petrol pump access, or laying utilities such as telecom cables, water pipelines, gas pipelines, or sewer lines along or across a National Highway.",
+    hiA: "NHAI NOC (No Objection Certificate) तब आवश्यक होता है जब किसी संपत्ति, पेट्रोल पंप या किसी यूटिलिटी सेवा को नेशनल हाईवे के Right of Way (ROW) के साथ या उसके पार कार्य करना हो। नेशनल हाईवे से एंट्री-एग्जिट रोड बनाने, पेट्रोल पंप एक्सेस बनाने या टेलीकॉम केबल, पानी की पाइपलाइन, गैस पाइपलाइन या सीवर लाइन बिछाने के लिए NHAI की अनुमति आवश्यक होती है।"
+  },
+  {
+    enQ: "Is NHAI permission required for access from private property to a National Highway?",
+    hiQ: "क्या निजी संपत्ति से नेशनल हाईवे पर एंट्री के लिए NHAI की अनुमति आवश्यक है?",
+    enA: "Yes. Any entry or exit connection from private property to a National Highway requires approval from NHAI as per the guidelines issued by the Ministry of Road Transport and Highways (MoRTH). Constructing access without approval may result in penalties or removal of the unauthorized access.",
+    hiA: "हाँ। किसी भी निजी संपत्ति से नेशनल हाईवे पर एंट्री या एग्जिट बनाने के लिए NHAI की अनुमति MoRTH की गाइडलाइंस के अनुसार आवश्यक होती है। बिना अनुमति बनाए गए एक्सेस को हटाया जा सकता है या उस पर कार्रवाई हो सकती है।"
+  },
+  {
+    enQ: "How long does it take to obtain NHAI NOC approval?",
+    hiQ: "NHAI NOC प्राप्त करने में कितना समय लगता है?",
+    enA: "The time required for NHAI NOC approval varies depending on the case, documentation, and technical review by the concerned NHAI authority. The process generally includes proposal submission, document verification, technical examination and approval through the official NHAI/MoRTH portal.",
+    hiA: "NHAI NOC प्राप्त करने में लगने वाला समय मामले की प्रकृति, दस्तावेज़ों की पूर्णता तथा संबंधित NHAI कार्यालय द्वारा की जाने वाली तकनीकी जाँच पर निर्भर करता है। सामान्यतः इस प्रक्रिया में प्रस्ताव जमा करना, दस्तावेज़ों का सत्यापन, तकनीकी परीक्षण और NHAI/MoRTH पोर्टल के माध्यम से स्वीकृति प्राप्त करना शामिल होता है।"
+  },
+  {
+    enQ: "What documents are generally required for an NHAI NOC application?",
+    hiQ: "NHAI NOC आवेदन के लिए सामान्यतः कौन-कौन से दस्तावेज़ आवश्यक होते हैं?",
+    enA: "Typical documents required for an NHAI NOC application include a location map, site plan, property ownership documents, highway access drawings, utility layout drawings, and other supporting documents as required for submission on the official NHAI/MoRTH portal.",
+    hiA: "सामान्यतः आवेदन के लिए लोकेशन मैप, साइट प्लान, संपत्ति के स्वामित्व के दस्तावेज़, हाईवे एक्सेस ड्रॉइंग, यूटिलिटी लेआउट ड्रॉइंग तथा अन्य आवश्यक दस्तावेज़ NHAI/MoRTH पोर्टल के अनुसार जमा करने होते हैं।"
+  },
+  {
+    enQ: "Can NHAI NOC be obtained for petrol pumps or retail outlets on National Highways?",
+    hiQ: "क्या नेशनल हाईवे पर पेट्रोल पंप या रिटेल आउटलेट के लिए NHAI NOC लिया जा सकता है?",
+    enA: "Yes. Petrol pumps or retail outlets located along National Highways require NHAI approval for highway access permission. The proposed access design must comply with MoRTH guidelines regarding safety, spacing, and traffic movement.",
+    hiA: "हाँ। नेशनल हाईवे के साथ स्थित पेट्रोल पंप या रिटेल आउटलेट के लिए हाईवे एक्सेस परमिशन हेतु NHAI की अनुमति आवश्यक होती है। प्रस्तावित एक्सेस MoRTH की सुरक्षा, दूरी और ट्रैफिक से संबंधित गाइडलाइंस के अनुसार होना चाहिए।"
+  },
+  {
+    enQ: "What is the difference between Provisional NOC and Final NOC from NHAI?",
+    hiQ: "NHAI से मिलने वाले Provisional NOC और Final NOC में क्या अंतर होता है?",
+    enA: "A Provisional NOC is issued after approval of the proposal and drawings. The applicant is generally given one year to complete construction of the approved access or utility work. After completion of construction as per the approved drawings, the applicant can apply for Final NOC.",
+    hiA: "Provisional NOC प्रस्ताव और ड्रॉइंग के अनुमोदन के बाद जारी किया जाता है। सामान्यतः आवेदक को स्वीकृत ड्रॉइंग के अनुसार निर्माण कार्य पूरा करने के लिए एक वर्ष का समय दिया जाता है। निर्माण पूरा होने के बाद Final NOC के लिए आवेदन किया जा सकता है।"
+  },
+  {
+    enQ: "What if construction cannot be completed within the time given in Provisional NOC?",
+    hiQ: "यदि Provisional NOC में दिए गए समय में निर्माण कार्य पूरा नहीं हो पाता तो क्या करना चाहिए?",
+    enA: "If construction cannot be completed within the given time, the applicant may apply for Extension of Time (EOT). Generally, EOT can be granted a maximum of two times, with one year extension each time, subject to approval by NHAI. A genuine reason for the delay in construction must be provided while applying for the extension.",
+    hiA: "यदि निर्धारित समय में निर्माण कार्य पूरा नहीं हो पाता है, तो आवेदक Extension of Time (EOT) के लिए आवेदन कर सकता है। सामान्यतः EOT अधिकतम दो बार दिया जा सकता है और प्रत्येक बार एक वर्ष तक की अवधि के लिए होता है, जो NHAI की स्वीकृति पर निर्भर करता है। इसके लिए निर्माण में देरी का वास्तविक कारण बताना आवश्यक होता है।"
+  },
+  {
+    enQ: "Can rejected or pending NHAI NOC applications be corrected and resubmitted?",
+    hiQ: "क्या रिजेक्ट या लंबित NHAI NOC आवेदन को सुधारकर फिर से जमा किया जा सकता है?",
+    enA: "Yes. Applications that have been returned for correction, rejected, or kept pending due to technical queries can be reviewed and resubmitted with corrected drawings and proper documentation through the NHAI/MoRTH portal.",
+    hiA: "हाँ। जिन मामलों में आवेदन सुधार के लिए वापस आया हो, तकनीकी आपत्तियों के कारण लंबित हो या रिजेक्ट हो गया हो, उन्हें सही दस्तावेज़ और संशोधित ड्रॉइंग के साथ NHAI/MoRTH पोर्टल पर दोबारा जमा किया जा सकता है।"
+  }
+];
+---
+
+<!-- SEO Schema -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(item => ({
+    "@type": "Question",
+    "name": item.enQ,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.enA
+    }
+  }))
+})} />
+
+<section id="faq" class="faq">
+  <div class="container">
+
+    <h2 class="en">Frequently Asked Questions</h2>
+    <h2 class="hi hidden">अक्सर पूछे जाने वाले प्रश्न</h2>
+
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <div class="faq-item">
+
+          <button class="faq-question">
+            <span class="en">{item.enQ}</span>
+            <span class="hi hidden">{item.hiQ}</span>
+          </button>
+
+          <div class="faq-answer">
+            <p class="en">{item.enA}</p>
+            <p class="hi hidden">{item.hiA}</p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\HeroSummary.astro
+
+================================================================================
+
+<section id="home" class="hero">
+  <div class="container hero-layout">
+    
+    <div class="hero-content">
+      <h1 class="en">
+        NHAI NOC & Highway Access Permission Consultant in Haryana, Punjab & Delhi NCR
+      </h1>
+      <h1 class="hi hidden">
+        हरियाणा, पंजाब एवं दिल्ली एनसीआर में NHAI NOC एवं हाईवे अनुमति परामर्श सेवा
+      </h1>
+
+      <p class="en">
+        Serving clients since 2005 across Haryana, Punjab and Delhi NCR for approvals related to properties and utilities along National Highways.
+      </p>
+      <p class="hi hidden">
+        वर्ष 2005 से हरियाणा, पंजाब और दिल्ली एनसीआर में नेशनल हाईवे से संबंधित कार्यों में सेवाएँ प्रदान करते हुए।
+      </p>
+
+      <p class="hero-note en">
+        Consultation available for new proposals as well as cases requiring correction or resubmission.
+      </p>
+      <p class="hero-note hi hidden">
+        नए प्रस्तावों के साथ-साथ सुधार या पुनः प्रस्तुत करने वाले मामलों के लिए भी परामर्श उपलब्ध हैं।
+      </p>
+    </div>
+
+    <div class="hero-nhai">
+      <img src="/images/nhai-logo.png" loading="lazy" alt="NHAI Logo" />
+    </div>
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\ProcessSection.astro
+
+================================================================================
+
+---
+const { mode = "summary", readMoreLink = "/process" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "process"} class="process">
+  <div class="container">
+
+    <h2 class="en">Approval Process</h2>
+    <h2 class="hi hidden">अनुमोदन प्रक्रिया</h2>
+
+    {/* SUMMARY */}
+    {!isFull && (
+      <>
+        <ol class="en">
+          <li>Initial discussion and review of documents</li>
+          <li>Site understanding and visit (if required)</li>
+          <li>Preparation of drawings and application documents</li>
+        </ol>
+
+        <ol class="hi hidden">
+          <li>प्रारम्भिक चर्चा एवं दस्तावेजों की जाँच</li>
+          <li>आवश्यक होने पर साइट निरीक्षण</li>
+          <li>ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
+        </ol>
+      </>
+    )}
+
+    {/* FULL */}
+    {isFull && (
+      <div class="process-full">
+
+        <ol class="en">
+          <li>Initial discussion and review of available documents</li>
+          <li>Site understanding and visit (if required)</li>
+          <li>Preparation of required drawings and application documents</li>
+          <li>Submission of proposal on the official NHAI/MoRTH portal</li>
+          <li>Payment of applicable government processing fees</li>
+          <li>Follow-up with the concerned NHAI authority</li>
+          <li>Handling technical queries and corrections</li>
+          <li>Issue of Provisional NOC approval</li>
+        </ol>
+
+        <ol class="hi hidden">
+          <li>प्रारम्भिक चर्चा एवं उपलब्ध दस्तावेजों की जाँच</li>
+          <li>आवश्यक होने पर साइट का निरीक्षण</li>
+          <li>आवश्यक ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
+          <li>आधिकारिक NHAI/MoRTH पोर्टल पर प्रस्ताव जमा करना</li>
+          <li>सरकारी प्रोसेसिंग फीस जमा करना</li>
+          <li>संबंधित NHAI कार्यालय के साथ अनुवर्ती कार्यवाही</li>
+          <li>आपत्तियों/क्वेरी का समाधान एवं संशोधन</li>
+          <li>Provisional NOC स्वीकृति जारी होना</li>
+        </ol>
+
+        {/* SPECIAL BLOCK */}
+        <div class="after-noc">
+
+          <p class="en">
+            <strong>Important:</strong> After issue of Provisional NOC, the applicant is generally given
+            one year to complete construction. After completion, Final NOC may be applied.
+            If construction cannot be completed in time, Extension of Time (EOT) may be required.
+          </p>
+
+          <p class="hi hidden">
+            <strong>महत्वपूर्ण:</strong> Provisional NOC जारी होने के बाद सामान्यतः एक वर्ष का समय
+            दिया जाता है। निर्माण पूर्ण होने पर Final NOC के लिए आवेदन किया जाता है।
+            समय पर कार्य पूरा न होने पर समयवृद्धि (EOT) आवश्यक हो सकती है।
+          </p>
+
+        </div>
+
+      </div>
+    )}
+
+    {/* READ MORE */}
+    {!isFull && (
+      <a href={readMoreLink} class="read-more-btn">
+        <span class="en">View Full Process</span>
+        <span class="hi hidden">पूरी प्रक्रिया देखें</span>
+      </a>
+    )}
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\components\sections\ServicesSection.astro
+
+================================================================================
+
+---
+const { mode = "summary", readMoreLink = "/services" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "services"} class="services">
+  <div class="container">
+
+    <h2 class="en">NHAI NOC Consultancy Services</h2>
+    <h2 class="hi hidden">NHAI NOC परामर्श सेवाएँ</h2>
+
+    <!-- SUMMARY INTRO -->
+    <p class="en">
+      We provide consultancy and assistance for obtaining NHAI NOC approvals related to highway access
+      permission, petrol pump approvals and utility crossings.
+    </p>
+
+    <p class="hi hidden">
+      हम हाईवे एक्सेस अनुमति, पेट्रोल पंप NOC और विभिन्न यूटिलिटी क्रॉसिंग के लिए NHAI NOC प्राप्त करने में
+      परामर्श एवं सहायता प्रदान करते हैं।
+    </p>
+
+    {/* SUMMARY LIST */}
+    {!isFull && (
+      <>
+        <ul class="en">
+          <li>Access permission for private property</li>
+          <li>Retail Outlet (Petrol Pump) NOC approval</li>
+          <li>OFC / Telecom cable permission</li>
+        </ul>
+
+        <ul class="hi hidden">
+          <li>निजी संपत्ति हेतु एक्सेस अनुमति</li>
+          <li>पेट्रोल पंप NOC स्वीकृति</li>
+          <li>OFC / टेलीकॉम केबल अनुमति</li>
+        </ul>
+      </>
+    )}
+
+    {/* FULL CONTENT */}
+    {isFull && (
+      <div class="services-full">
+
+        <p class="en">
+          We provide consultancy and assistance for obtaining NHAI NOC approvals related to highway access
+          permission, petrol pump retail outlet approval, OFC cable laying, and pipeline crossings along
+          National Highways in Haryana, Punjab and Delhi NCR.
+        </p>
+
+        <p class="hi hidden">
+          हम हरियाणा, पंजाब एवं दिल्ली एनसीआर में नेशनल हाईवे से संबंधित हाईवे एक्सेस अनुमति, पेट्रोल पंप (रिटेल आउटलेट)
+          NOC, OFC केबल बिछाने और विभिन्न पाइपलाइन क्रॉसिंग के लिए परामर्श एवं सहायता प्रदान करते हैं।
+        </p>
+
+        <ul class="en">
+          <li>Access permission for private property (entry/exit to National Highway)</li>
+          <li>Retail Outlet (Petrol Pump) NOC approval</li>
+          <li>OFC / Telecom cable permission along or across National Highway ROW</li>
+          <li>Gas pipeline permission along or across National Highway ROW</li>
+          <li>Sewerage pipeline permission along or across National Highway ROW</li>
+          <li>Water supply pipeline permission along or across National Highway ROW</li>
+        </ul>
+
+        <ul class="hi hidden">
+          <li>निजी संपत्ति हेतु एक्सेस अनुमति (NHAI से प्रवेश/निकास मार्ग)</li>
+          <li>रिटेल आउटलेट (पेट्रोल पंप) NOC स्वीकृति</li>
+          <li>OFC / टेलीकॉम केबल हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>गैस पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>सीवरेज पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>जल आपूर्ति पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+        </ul>
+
+      </div>
+    )}
+
+    {/* READ MORE */}
+    {!isFull && (
+      <a href={readMoreLink} class="read-more-btn">
+        <span class="en">View All Services</span>
+        <span class="hi hidden">सभी सेवाएँ देखें</span>
+      </a>
+    )}
+
+  </div>
+</section>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\layouts\MainLayout.astro
+
+================================================================================
+
+---
+import Header from "../components/Header.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+const {
+  title,
+  description = "NHAI NOC Consultant since 2005 assisting with highway access permission, petrol pump NOC, OFC cable permission and pipeline crossings.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta name="robots" content="index, follow" />
+
+    <link rel="preload" as="image" href="/images/logo.svg" />
+
+    <!-- Basic -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Dynamic SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Canonical -->
+    <link
+      rel="canonical"
+      href={`https://shridharconsultants.in${Astro.url.pathname}`}
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://shridharconsultants.in/images/logo.png"
+    />
+    <meta property="og:locale" content="en_IN" />
+    <meta
+      property="og:url"
+      content={`https://shridharconsultants.in${Astro.url.pathname}`}
+    />
+    <meta property="og:site_name" content="Shridhar Consultants" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta
+      name="twitter:image"
+      content="https://shridharconsultants.in/images/logo.png"
+    />
+
+    <!-- Geo (keep same as your HTML) -->
+    <meta name="geo.country" content="IN" />
+    <meta name="geo.region" content="IN-HR" />
+    <meta name="geo.placename" content="Ambala City" />
+    <meta name="geo.position" content="30.385261;76.790969" />
+    <meta name="ICBM" content="30.385261, 76.790969" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/images/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Schema (GLOBAL only) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://shridharconsultants.in/#business",
+        "name": "Shridhar Consultants",
+        "url": "https://shridharconsultants.in/",
+        "logo": "https://shridharconsultants.in/images/logo.png",
+        "image": "https://shridharconsultants.in/images/logo.png",
+        "telephone": "+91-7988008722",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "17/7 New Partap Nagar, Behind Vita Milk Plant",
+          "addressLocality": "Ambala City",
+          "addressRegion": "Haryana",
+          "postalCode": "134007",
+          "addressCountry": "IN"
+        }
+      }
+    </script>
+
+    <slot name="head" />
+  </head>
+
+  <body class="site-body">
+    <Header />
+    <Navbar />
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <!-- Floating Buttons -->
+    <a
+      href="tel:+917988008722"
+      class="float-call"
+      aria-label="Call Shridhar Consultants"
+    >
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+        <path
+          d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011-.24 
+        11.36 11.36 0 003.57.57 1 1 0 011 1v3.5a1 1 0 01-1 1 
+        C10.07 22 2 13.93 2 4a1 1 0 011-1H6.5a1 1 0 011 1 
+        11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1l-2.2 2.22z"
+        ></path>
+      </svg>
+    </a>
+    <a
+      href="https://wa.me/919416665796"
+      class="float-wa"
+      target="_blank"
+      aria-label="WhatsApp Shridhar Consultants"
+    >
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+        <path
+          d="M20.52 3.48A11.82 11.82 0 0012.03 0C5.4 0 .05 5.35.05 11.98
+        c0 2.11.55 4.18 1.6 6L0 24l6.19-1.62a11.94 11.94 0 005.84 1.49h.01
+        c6.63 0 11.98-5.35 11.98-11.98 0-3.2-1.25-6.2-3.5-8.41zM12.04
+        21.8c-1.83 0-3.63-.49-5.2-1.42l-.37-.22-3.67.96.98-3.58-.24-.37
+        a9.77 9.77 0 01-1.5-5.19c0-5.41 4.4-9.81 9.81-9.81 2.62 0
+        5.08 1.02 6.94 2.88a9.77 9.77 0 012.87 6.93c0 5.41-4.4
+        9.82-9.81 9.82zm5.43-7.36c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15
+        -.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.28-.47-2.44-1.5
+        -.9-.8-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52
+        .15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22
+        -.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05
+        1.02-1.05 2.49 0 1.47 1.08 2.89 1.23 3.09.15.2 2.13
+        3.26 5.16 4.57.72.31 1.28.5 1.72.64.72.23
+        1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.41.25-.7.25-1.3.17-1.42
+        -.07-.12-.27-.2-.57-.35z"
+        ></path>
+      </svg>
+    </a>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+      <span class="close">&times;</span>
+      <img id="lightbox-img" src="" alt="Expanded view" />
+    </div>
+
+    <Footer />
+
+    <!-- JS -->
+    <script src="/script.js" defer></script>
+  </body>
+</html>
+
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\about.astro
+
+================================================================================
+
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import BackButton from '../components/BackButton.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="About Shridhar Consultants | 20+ Years Experience in NHAI NOC"
+  description="Shridhar Consultants has 20+ years of experience in NHAI NOC, highway access permission and utility approvals across Haryana, Punjab and Delhi NCR."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="about" />
+  </div>
+
+  <AboutSection mode="full" />
+  <ContactSection />
+
+</MainLayout>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\access-permission.astro
+
+================================================================================
+
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import AccessPermissionSection from "../components/sections/AccessPermissionSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI Access Permission | Highway Entry & Exit Approval"
+  description="Expert consultancy for NHAI access permission including highway entry and exit approval for private property, commercial sites and petrol pumps."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="access-permission" />
+  </div>
+
+  <AccessPermissionSection mode="full" />
+  <ContactSection />
+
+</MainLayout>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\examples.astro
+
+================================================================================
+
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ExamplesSection from "../components/sections/ExamplesSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Project Examples | Access & Utility Work"
+  description="Real examples of NHAI NOC projects including highway access permission, utility crossings and approved site work across different locations."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="examples" />
+  </div>
+
+  <ExamplesSection mode="full" />
+
+  <ContactSection />
+
+</MainLayout>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\index.astro
+
+================================================================================
+
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSummary from '../components/sections/HeroSummary.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import AccessPermissionSection from '../components/sections/AccessPermissionSection.astro';
+import ServicesSection from '../components/sections/ServicesSection.astro';
+import ProcessSection from '../components/sections/ProcessSection.astro';
+import ExperienceSection from '../components/sections/ExperienceSection.astro';
+import ExamplesSection from '../components/sections/ExamplesSection.astro';
+import FAQSection from '../components/sections/FAQSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Consultant in Haryana, Punjab & Delhi NCR | Shridhar Consultants"
+  description="Expert NHAI NOC consultant since 2005 for highway access permission, petrol pump NOC, OFC cable and pipeline crossings across Haryana, Punjab and Delhi NCR."
+>
+
+  <HeroSummary />
+  <AboutSection mode="summary" />
+  <AccessPermissionSection mode="summary" />
+  <ServicesSection mode="summary" />
+  <ProcessSection mode="summary" />
+  <ExperienceSection mode="summary" />
+  <ExamplesSection mode="summary" />
+  <FAQSection />
+  <ContactSection />
+
+</MainLayout>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\process.astro
+
+================================================================================
+
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ProcessSection from "../components/sections/ProcessSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Approval Process | Step-by-Step Guide"
+  description="Complete step-by-step process for NHAI NOC approval including documents, application submission, technical review and approval timeline."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="process" />
+  </div>
+
+  <ProcessSection mode="full" />
+  <ContactSection />
+
+</MainLayout>
+
+================================================================================
+
+FILE: e:\ALL Data\shridharconsultants\src\pages\services.astro
+
+================================================================================
+
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ServicesSection from "../components/sections/ServicesSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Services | Access, Utility & Highway Approvals"
+  description="Professional NHAI NOC services for access permission, petrol pump approval, OFC cable and pipeline crossings with complete documentation and approval support."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="services" />
+  </div>
+
+  <ServicesSection mode="full" />
+  <ContactSection />
+
+</MainLayout>

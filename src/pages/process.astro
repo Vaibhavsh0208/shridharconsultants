@@ -1,0 +1,20 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ProcessSection from "../components/sections/ProcessSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Approval Process | Step-by-Step Guide"
+  description="Complete step-by-step process for NHAI NOC approval including documents, application submission, technical review and approval timeline."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="process" />
+  </div>
+
+  <ProcessSection mode="full" />
+  <ContactSection />
+
+</MainLayout>

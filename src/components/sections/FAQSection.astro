@@ -1,0 +1,207 @@
+---
+const faqs = [
+  {
+    enQ: "What is NHAI NOC and when is it required for properties along National Highways?",
+    hiQ: "NHAI NOC क्या होता है और नेशनल हाईवे के पास स्थित संपत्ति के लिए इसकी आवश्यकता कब होती है?",
+    enA: "NHAI NOC (No Objection Certificate) is required when any property, petrol pump, or utility service needs access to or crosses the Right of Way (ROW) of a National Highway. Approval from NHAI is mandatory before constructing an entry or exit road, petrol pump access, or laying utilities such as telecom cables, water pipelines, gas pipelines, or sewer lines along or across a National Highway.",
+    hiA: "NHAI NOC (No Objection Certificate) तब आवश्यक होता है जब किसी संपत्ति, पेट्रोल पंप या किसी यूटिलिटी सेवा को नेशनल हाईवे के Right of Way (ROW) के साथ या उसके पार कार्य करना हो। नेशनल हाईवे से एंट्री-एग्जिट रोड बनाने, पेट्रोल पंप एक्सेस बनाने या टेलीकॉम केबल, पानी की पाइपलाइन, गैस पाइपलाइन या सीवर लाइन बिछाने के लिए NHAI की अनुमति आवश्यक होती है।",
+  },
+  {
+    enQ: "Is NHAI permission required for access from private property to a National Highway?",
+    hiQ: "क्या निजी संपत्ति से नेशनल हाईवे पर एंट्री के लिए NHAI की अनुमति आवश्यक है?",
+    enA: "Yes. Any entry or exit connection from private property to a National Highway requires approval from NHAI as per the guidelines issued by the Ministry of Road Transport and Highways (MoRTH). Constructing access without approval may result in penalties or removal of the unauthorized access.",
+    hiA: "हाँ। किसी भी निजी संपत्ति से नेशनल हाईवे पर एंट्री या एग्जिट बनाने के लिए NHAI की अनुमति MoRTH की गाइडलाइंस के अनुसार आवश्यक होती है। बिना अनुमति बनाए गए एक्सेस को हटाया जा सकता है या उस पर कार्रवाई हो सकती है।",
+  },
+  {
+    enQ: "How long does it take to obtain NHAI NOC approval?",
+    hiQ: "NHAI NOC प्राप्त करने में कितना समय लगता है?",
+    enA: "The time required for NHAI NOC approval varies depending on the case, documentation, and technical review by the concerned NHAI authority. The process generally includes proposal submission, document verification, technical examination and approval through the official NHAI/MoRTH portal.",
+    hiA: "NHAI NOC प्राप्त करने में लगने वाला समय मामले की प्रकृति, दस्तावेज़ों की पूर्णता तथा संबंधित NHAI कार्यालय द्वारा की जाने वाली तकनीकी जाँच पर निर्भर करता है। सामान्यतः इस प्रक्रिया में प्रस्ताव जमा करना, दस्तावेज़ों का सत्यापन, तकनीकी परीक्षण और NHAI/MoRTH पोर्टल के माध्यम से स्वीकृति प्राप्त करना शामिल होता है।",
+  },
+  {
+    enQ: "What documents are generally required for an NHAI NOC application?",
+    hiQ: "NHAI NOC आवेदन के लिए सामान्यतः कौन-कौन से दस्तावेज़ आवश्यक होते हैं?",
+    enA: "Typical documents required for an NHAI NOC application include a location map, site plan, property ownership documents, highway access drawings, utility layout drawings, and other supporting documents as required for submission on the official NHAI/MoRTH portal.",
+    hiA: "सामान्यतः आवेदन के लिए लोकेशन मैप, साइट प्लान, संपत्ति के स्वामित्व के दस्तावेज़, हाईवे एक्सेस ड्रॉइंग, यूटिलिटी लेआउट ड्रॉइंग तथा अन्य आवश्यक दस्तावेज़ NHAI/MoRTH पोर्टल के अनुसार जमा करने होते हैं।",
+  },
+  {
+    enQ: "Can NHAI NOC be obtained for petrol pumps or retail outlets on National Highways?",
+    hiQ: "क्या नेशनल हाईवे पर पेट्रोल पंप या रिटेल आउटलेट के लिए NHAI NOC लिया जा सकता है?",
+    enA: "Yes. Petrol pumps or retail outlets located along National Highways require NHAI approval for highway access permission. The proposed access design must comply with MoRTH guidelines regarding safety, spacing, and traffic movement.",
+    hiA: "हाँ। नेशनल हाईवे के साथ स्थित पेट्रोल पंप या रिटेल आउटलेट के लिए हाईवे एक्सेस परमिशन हेतु NHAI की अनुमति आवश्यक होती है। प्रस्तावित एक्सेस MoRTH की सुरक्षा, दूरी और ट्रैफिक से संबंधित गाइडलाइंस के अनुसार होना चाहिए।",
+  },
+  {
+    enQ: "What is the difference between Provisional NOC and Final NOC from NHAI?",
+    hiQ: "NHAI से मिलने वाले Provisional NOC और Final NOC में क्या अंतर होता है?",
+    enA: "A Provisional NOC is issued after approval of the proposal and drawings. The applicant is generally given one year to complete construction of the approved access or utility work. After completion of construction as per the approved drawings, the applicant can apply for Final NOC.",
+    hiA: "Provisional NOC प्रस्ताव और ड्रॉइंग के अनुमोदन के बाद जारी किया जाता है। सामान्यतः आवेदक को स्वीकृत ड्रॉइंग के अनुसार निर्माण कार्य पूरा करने के लिए एक वर्ष का समय दिया जाता है। निर्माण पूरा होने के बाद Final NOC के लिए आवेदन किया जा सकता है।",
+  },
+  {
+    enQ: "What if construction cannot be completed within the time given in Provisional NOC?",
+    hiQ: "यदि Provisional NOC में दिए गए समय में निर्माण कार्य पूरा नहीं हो पाता तो क्या करना चाहिए?",
+    enA: "If construction cannot be completed within the given time, the applicant may apply for Extension of Time (EOT). Generally, EOT can be granted a maximum of two times, with one year extension each time, subject to approval by NHAI. A genuine reason for the delay in construction must be provided while applying for the extension.",
+    hiA: "यदि निर्धारित समय में निर्माण कार्य पूरा नहीं हो पाता है, तो आवेदक Extension of Time (EOT) के लिए आवेदन कर सकता है। सामान्यतः EOT अधिकतम दो बार दिया जा सकता है और प्रत्येक बार एक वर्ष तक की अवधि के लिए होता है, जो NHAI की स्वीकृति पर निर्भर करता है। इसके लिए निर्माण में देरी का वास्तविक कारण बताना आवश्यक होता है।",
+  },
+  {
+    enQ: "Can rejected or pending NHAI NOC applications be corrected and resubmitted?",
+    hiQ: "क्या रिजेक्ट या लंबित NHAI NOC आवेदन को सुधारकर फिर से जमा किया जा सकता है?",
+    enA: "Yes. Applications that have been returned for correction, rejected, or kept pending due to technical queries can be reviewed and resubmitted with corrected drawings and proper documentation through the NHAI/MoRTH portal.",
+    hiA: "हाँ। जिन मामलों में आवेदन सुधार के लिए वापस आया हो, तकनीकी आपत्तियों के कारण लंबित हो या रिजेक्ट हो गया हो, उन्हें सही दस्तावेज़ और संशोधित ड्रॉइंग के साथ NHAI/MoRTH पोर्टल पर दोबारा जमा किया जा सकता है।",
+  },
+];
+---
+
+<!-- SEO Schema -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.enQ,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.enA,
+      },
+    })),
+  })}
+/>
+
+<section id="faq" class="faq">
+  <div class="container">
+    <h2 class="en">Frequently Asked Questions</h2>
+    <h2 class="hi hidden">अक्सर पूछे जाने वाले प्रश्न</h2>
+
+    <div class="faq-list">
+      {
+        faqs.map((item) => (
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="en">{item.enQ}</span>
+              <span class="hi hidden">{item.hiQ}</span>
+            </button>
+
+            <div class="faq-answer">
+              <p class="en">{item.enA}</p>
+              <p class="hi hidden">{item.hiA}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const faqButtons = document.querySelectorAll(".faq-question");
+
+  faqButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const answer = btn.nextElementSibling;
+      if (!answer) return;
+
+      const isCurrentlyActive = answer.classList.contains("active");
+
+      // 1. If we clicked an already open one, just close it and stop
+      if (isCurrentlyActive) {
+        answer.classList.remove("active");
+        return;
+      }
+
+      // 2. Find any other open answers
+      const otherOpenAnswer = document.querySelector(".faq-answer.active");
+
+      if (otherOpenAnswer) {
+        // COLLAPSE the old one first
+        otherOpenAnswer.classList.remove("active");
+
+        // WAIT for the collapse animation (100ms) before expanding the new one
+        setTimeout(() => {
+          answer.classList.add("active");
+          // Smoothly scroll the question back into view if it moved
+          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      } else {
+        // If nothing else was open, just expand immediately
+        answer.classList.add("active");
+      }
+    });
+  });
+</script>
+
+<style>
+  .faq-list {
+    margin-top: 20px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e3e8f0;
+  }
+
+  .faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 16px 0;
+    font-size: 17px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0b3d6b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-right: 40px;
+  }
+
+  .faq-question::before,
+  .faq-question::after {
+    content: "";
+    position: absolute;
+    right: 20px; /* Aligned distance from right */
+    top: 50%;
+    background-color: #0b3d6b;
+    transition: all 0.3s ease;
+    transform: translateY(-50%); /* Better vertical centering */
+  }
+
+  .faq-question::before {
+    width: 14px;
+    height: 2px;
+  }
+
+  .faq-question::after {
+    width: 2px;
+    height: 14px;
+    /* Center the vertical bar over the horizontal one */
+    right: 26px;
+  }
+
+  .faq-question:has(+ .faq-answer.active)::after {
+    transform: rotate(90deg);
+    opacity: 0; /* Hide the vertical bar to leave only the horizontal (-) */
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  /* When the answer is active, we show it */
+  .faq-answer.active {
+    max-height: 1000px;
+    margin-bottom: 15px;
+    transition: max-height 0.4s ease-in-out;
+  }
+
+  .faq-answer p {
+    margin: 0;
+    padding-bottom: 10px;
+    color: #4a5568;
+    line-height: 1.6;
+    text-align: justify;
+  }
+</style>

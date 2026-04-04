@@ -1,0 +1,21 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ExamplesSection from "../components/sections/ExamplesSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Project Examples | Access & Utility Work"
+  description="Real examples of NHAI NOC projects including highway access permission, utility crossings and approved site work across different locations."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="examples" />
+  </div>
+
+  <ExamplesSection mode="full" />
+
+  <ContactSection />
+
+</MainLayout>

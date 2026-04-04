@@ -1,0 +1,65 @@
+---
+const { mode = "summary", readMoreLink = "/examples" } = Astro.props;
+const isFull = mode === "full";
+import ReadMoreButton from "../ReadMoreButton.astro";
+
+const examples = [
+  {
+    src: "/images/example1.jpg",
+    alt: "NHAI access permission layout plan drawing for a petrol pump retail outlet along a National Highway",
+    en: "Technical layout plan drawing showing proposed petrol pump access to a National Highway.",
+    hi: "नेशनल हाईवे से प्रस्तावित पेट्रोल पंप एक्सेस को दर्शाने वाली तकनीकी लेआउट योजना ड्रॉइंग।",
+  },
+  {
+    src: "/images/example2.jpg",
+    alt: "Constructed access road connecting private property to a National Highway",
+    en: "Example of constructed highway access connecting a private property to a National Highway.",
+    hi: "निजी संपत्ति को नेशनल हाईवे से जोड़ने वाले निर्मित एक्सेस मार्ग का उदाहरण।",
+  },
+  {
+    src: "/images/example3.jpg",
+    alt: "Constructed access to private property from a National Highway with RCC slab culvert",
+    en: "Example of constructed access to a private property from a National Highway including an RCC slab culvert.",
+    hi: "नेशनल हाईवे से निजी संपत्ति के लिए निर्मित एक्सेस मार्ग का उदाहरण, जिसमें आरसीसी स्लैब कलवर्ट बनाया गया है।",
+  },
+];
+
+// Summary limit
+const displayExamples = isFull ? examples : examples.slice(0, 2);
+---
+
+<section id={isFull ? undefined : "examples"} class="examples">
+  <div class="container">
+    <h2 class="en">Examples of NHAI Access & Utility Permission Work</h2>
+    <h2 class="hi hidden">हाईवे एक्सेस एवं यूटिलिटी अनुमति कार्य के उदाहरण</h2>
+    <p class="en">
+      Examples of typical highway access and utility permission work handled:
+    </p>
+    <p class="hi hidden">
+      हाईवे एक्सेस एवं यूटिलिटी अनुमति से संबंधित सामान्य कार्यों के उदाहरण:
+    </p>
+
+    <div class="examples-grid">
+      {
+        displayExamples.map((item) => (
+          <div class="card">
+            <img
+              src={item.src}
+              alt={item.alt}
+              width="400"
+              height="300"
+              loading="lazy"
+              class="gallery-img"
+            />
+
+            <p class="en">{item.en}</p>
+            <p class="hi hidden">{item.hi}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* READ MORE (only summary) */}
+    {!isFull && <ReadMoreButton href={readMoreLink} type="view" />}
+  </div>
+</section>

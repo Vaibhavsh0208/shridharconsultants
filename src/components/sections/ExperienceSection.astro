@@ -1,0 +1,21 @@
+---
+const { mode = "summary", readMoreLink = "/experience" } = Astro.props;
+const isFull = mode === "full";
+---
+
+<section id={isFull ? undefined : "experience"} class="experience">
+  <div class="container">
+    <h2 class="en">Experience</h2>
+    <h2 class="hi hidden">अनुभव</h2>
+    <p class="en">
+      Working since 2005 across Haryana, Punjab and Delhi NCR. Numerous cases
+      handled related to highway access permissions, retail outlet approvals and
+      utility crossings.
+    </p>
+    <p class="hi hidden">
+      वर्ष 2005 से हरियाणा, पंजाब एवं दिल्ली एनसीआर में कार्यरत। हाईवे एक्सेस
+      अनुमति, रिटेल आउटलेट अनुमोदन और यूटिलिटी क्रॉसिंग से संबंधित अनेक मामलों
+      का अनुभव।
+    </p>
+  </div>
+</section>

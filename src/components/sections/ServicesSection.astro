@@ -1,0 +1,81 @@
+---
+const { mode = "summary", readMoreLink = "/services" } = Astro.props;
+const isFull = mode === "full";
+import ReadMoreButton from "../ReadMoreButton.astro";
+---
+
+<section id={isFull ? undefined : "services"} class="services">
+  <div class="container">
+
+    <h2 class="en">NHAI NOC Consultancy Services</h2>
+    <h2 class="hi hidden">NHAI NOC परामर्श सेवाएँ</h2>
+
+    <!-- SUMMARY INTRO -->
+    <p class="en">
+      We provide consultancy and assistance for obtaining NHAI NOC approvals related to highway access
+      permission, petrol pump approvals and utility crossings.
+    </p>
+
+    <p class="hi hidden">
+      हम हाईवे एक्सेस अनुमति, पेट्रोल पंप NOC और विभिन्न यूटिलिटी क्रॉसिंग के लिए NHAI NOC प्राप्त करने में
+      परामर्श एवं सहायता प्रदान करते हैं।
+    </p>
+
+    {/* SUMMARY LIST */}
+    {!isFull && (
+      <>
+        <ul class="en">
+          <li>Access permission for private property</li>
+          <li>Retail Outlet (Petrol Pump) NOC approval</li>
+          <li>OFC / Telecom cable permission</li>
+        </ul>
+
+        <ul class="hi hidden">
+          <li>निजी संपत्ति हेतु एक्सेस अनुमति</li>
+          <li>पेट्रोल पंप NOC स्वीकृति</li>
+          <li>OFC / टेलीकॉम केबल अनुमति</li>
+        </ul>
+      </>
+    )}
+
+    {/* FULL CONTENT */}
+    {isFull && (
+      <div class="services-full">
+
+        <p class="en">
+          We provide consultancy and assistance for obtaining NHAI NOC approvals related to highway access
+          permission, petrol pump retail outlet approval, OFC cable laying, and pipeline crossings along
+          National Highways in Haryana, Punjab and Delhi NCR.
+        </p>
+
+        <p class="hi hidden">
+          हम हरियाणा, पंजाब एवं दिल्ली एनसीआर में नेशनल हाईवे से संबंधित हाईवे एक्सेस अनुमति, पेट्रोल पंप (रिटेल आउटलेट)
+          NOC, OFC केबल बिछाने और विभिन्न पाइपलाइन क्रॉसिंग के लिए परामर्श एवं सहायता प्रदान करते हैं।
+        </p>
+
+        <ul class="en">
+          <li>Access permission for private property (entry/exit to National Highway)</li>
+          <li>Retail Outlet (Petrol Pump) NOC approval</li>
+          <li>OFC / Telecom cable permission along or across National Highway ROW</li>
+          <li>Gas pipeline permission along or across National Highway ROW</li>
+          <li>Sewerage pipeline permission along or across National Highway ROW</li>
+          <li>Water supply pipeline permission along or across National Highway ROW</li>
+        </ul>
+
+        <ul class="hi hidden">
+          <li>निजी संपत्ति हेतु एक्सेस अनुमति (NHAI से प्रवेश/निकास मार्ग)</li>
+          <li>रिटेल आउटलेट (पेट्रोल पंप) NOC स्वीकृति</li>
+          <li>OFC / टेलीकॉम केबल हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>गैस पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>सीवरेज पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+          <li>जल आपूर्ति पाइपलाइन हेतु अनुमति (NHAI ROW के साथ या पार)</li>
+        </ul>
+
+      </div>
+    )}
+
+    {/* READ MORE */}
+    {!isFull && <ReadMoreButton href={readMoreLink} type="services" />}
+
+  </div>
+</section>

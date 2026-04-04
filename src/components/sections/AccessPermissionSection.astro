@@ -1,0 +1,53 @@
+---
+const { mode = "summary", readMoreLink = "/access-permission" } = Astro.props;
+const isFull = mode === "full";
+import ReadMoreButton from "../ReadMoreButton.astro";
+---
+
+<section id={isFull ? undefined : "access-permission"} class="access-permission">
+  <div class="container">
+
+    <h2 class="en">NHAI Access Permission for Property & Retail Outlet</h2>
+    <h2 class="hi hidden">निजी संपत्ति एवं रिटेल आउटलेट के लिए NHAI एक्सेस अनुमति</h2>
+
+    <!-- SUMMARY CONTENT -->
+    <p class="en">
+      Access from a private property or retail outlet (petrol pump) to a National Highway requires
+      approval from NHAI as per applicable MoRTH guidelines.
+    </p>
+
+    <p class="hi hidden">
+      निजी संपत्ति या पेट्रोल पंप से नेशनल हाईवे तक प्रवेश मार्ग (Access) बनाने के लिए NHAI की
+      अनुमति आवश्यक होती है, जो MoRTH दिशानिर्देशों के अनुसार जारी की जाती है।
+    </p>
+
+    {isFull && (
+      <div class="access-full">
+
+        <p class="en">
+          Proper drawings, documentation and portal submission are required for obtaining the NHAI
+          No Objection Certificate (NOC).
+        </p>
+
+        <p class="hi hidden">
+          इसके लिए आवश्यक ड्रॉइंग, दस्तावेज़ तथा ऑनलाइन पोर्टल पर आवेदन प्रक्रिया पूरी करनी होती है।
+        </p>
+
+        <p class="en">
+          Shridhar Consultants assists clients in preparing drawings, documentation and submission of
+          proposals for highway access permissions in Haryana, Punjab and Delhi NCR.
+        </p>
+
+        <p class="hi hidden">
+          Shridhar Consultants हरियाणा, पंजाब एवं दिल्ली एनसीआर में हाईवे एक्सेस अनुमति के लिए आवश्यक
+          ड्रॉइंग, दस्तावेज़ तथा ऑनलाइन पोर्टल पर आवेदन प्रक्रिया में सहायता प्रदान करता है।
+        </p>
+
+      </div>
+    )}
+
+    {/* READ MORE (only summary) */}
+    {!isFull && <ReadMoreButton href={readMoreLink} type="read" />}
+
+  </div>
+</section>

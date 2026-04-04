@@ -1,0 +1,20 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackButton from "../components/BackButton.astro";
+import ServicesSection from "../components/sections/ServicesSection.astro";
+import ContactSection from '../components/sections/ContactSection.astro';
+---
+
+<MainLayout
+  title="NHAI NOC Services | Access, Utility & Highway Approvals"
+  description="Professional NHAI NOC services for access permission, petrol pump approval, OFC cable and pipeline crossings with complete documentation and approval support."
+>
+
+  <div class="container page-top-space">
+    <BackButton section="services" />
+  </div>
+
+  <ServicesSection mode="full" />
+  <ContactSection />
+
+</MainLayout>

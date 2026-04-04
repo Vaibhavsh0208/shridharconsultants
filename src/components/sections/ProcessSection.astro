@@ -1,0 +1,80 @@
+---
+const { mode = "summary", readMoreLink = "/process" } = Astro.props;
+const isFull = mode === "full";
+import ReadMoreButton from "../ReadMoreButton.astro";
+---
+
+<section id={isFull ? undefined : "process"} class="process">
+  <div class="container">
+
+    <h2 class="en">Approval Process</h2>
+    <h2 class="hi hidden">अनुमोदन प्रक्रिया</h2>
+
+    {/* SUMMARY */}
+    {!isFull && (
+      <>
+        <ol class="en">
+          <li>Initial discussion and review of documents</li>
+          <li>Site understanding and visit (if required)</li>
+          <li>Preparation of drawings and application documents</li>
+        </ol>
+
+        <ol class="hi hidden">
+          <li>प्रारम्भिक चर्चा एवं दस्तावेजों की जाँच</li>
+          <li>आवश्यक होने पर साइट निरीक्षण</li>
+          <li>ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
+        </ol>
+      </>
+    )}
+
+    {/* FULL */}
+    {isFull && (
+      <div class="process-full">
+
+        <ol class="en">
+          <li>Initial discussion and review of available documents</li>
+          <li>Site understanding and visit (if required)</li>
+          <li>Preparation of required drawings and application documents</li>
+          <li>Submission of proposal on the official NHAI/MoRTH portal</li>
+          <li>Payment of applicable government processing fees</li>
+          <li>Follow-up with the concerned NHAI authority</li>
+          <li>Handling technical queries and corrections</li>
+          <li>Issue of Provisional NOC approval</li>
+        </ol>
+
+        <ol class="hi hidden">
+          <li>प्रारम्भिक चर्चा एवं उपलब्ध दस्तावेजों की जाँच</li>
+          <li>आवश्यक होने पर साइट का निरीक्षण</li>
+          <li>आवश्यक ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
+          <li>आधिकारिक NHAI/MoRTH पोर्टल पर प्रस्ताव जमा करना</li>
+          <li>सरकारी प्रोसेसिंग फीस जमा करना</li>
+          <li>संबंधित NHAI कार्यालय के साथ अनुवर्ती कार्यवाही</li>
+          <li>आपत्तियों/क्वेरी का समाधान एवं संशोधन</li>
+          <li>Provisional NOC स्वीकृति जारी होना</li>
+        </ol>
+
+        {/* SPECIAL BLOCK */}
+        <div class="after-noc">
+
+          <p class="en">
+            <strong>Important:</strong> After issue of Provisional NOC, the applicant is generally given
+            one year to complete construction. After completion, Final NOC may be applied.
+            If construction cannot be completed in time, Extension of Time (EOT) may be required.
+          </p>
+
+          <p class="hi hidden">
+            <strong>महत्वपूर्ण:</strong> Provisional NOC जारी होने के बाद सामान्यतः एक वर्ष का समय
+            दिया जाता है। निर्माण पूर्ण होने पर Final NOC के लिए आवेदन किया जाता है।
+            समय पर कार्य पूरा न होने पर समयवृद्धि (EOT) आवश्यक हो सकती है।
+          </p>
+
+        </div>
+
+      </div>
+    )}
+
+    {/* READ MORE */}
+    {!isFull && <ReadMoreButton href={readMoreLink} type="process" />}
+
+  </div>
+</section>
