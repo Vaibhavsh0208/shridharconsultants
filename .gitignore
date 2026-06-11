@@ -4,6 +4,7 @@ dist/
 .vercel/
 .output/
 .cache/
+.codex/
 index.html
 *.log
 .env
