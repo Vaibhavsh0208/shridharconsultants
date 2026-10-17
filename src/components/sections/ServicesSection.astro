@@ -1,0 +1,47 @@
+---
+import ArrowLink from "../ArrowLink.astro";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
+const isFull = mode === "full";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
+const intro = isFull ? t.services.fullIntro : t.services.summaryIntro;
+const list = isFull ? t.services.fullList : t.services.summaryList;
+---
+
+<section id={isFull ? undefined : "services"} class="services">
+  <div class="container">
+    <Heading class="section-title">{t.services.title}</Heading>
+
+    <p>{intro}</p>
+
+    <ul>
+      {list.map((item) => <li>{item}</li>)}
+    </ul>
+
+    {!isFull && <ArrowLink href={localePath("/services", lang)} label={t.services.viewAll} />}
+  </div>
+</section>
+
+<style>
+  p,
+  li {
+    text-align: justify;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+</style>

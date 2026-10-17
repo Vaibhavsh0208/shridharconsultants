@@ -1,0 +1,71 @@
+---
+import ArrowLink from "../ArrowLink.astro";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
+const isFull = mode === "full";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
+const steps = isFull ? t.process.fullList : t.process.summaryList;
+---
+
+<section id={isFull ? undefined : "process"} class="process">
+  <div class="container">
+    <Heading class="section-title">{isFull ? t.process.pageTitle : t.process.title}</Heading>
+
+    <ol>
+      {steps.map((step) => <li>{step}</li>)}
+    </ol>
+
+    {
+      isFull && (
+        <div class="after-noc">
+          <p>
+            <strong>{t.process.importantLabel}</strong> {t.process.important}
+          </p>
+        </div>
+      )
+    }
+
+    {!isFull && <ArrowLink href={localePath("/process", lang)} label={t.process.viewFull} />}
+  </div>
+</section>
+
+<style>
+  p,
+  li {
+    text-align: justify;
+  }
+
+  ol {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  .after-noc {
+    background: var(--color-bg-tint);
+    border-left: 4px solid var(--color-primary);
+    padding: 16px 18px;
+    margin-top: 28px;
+    border-radius: var(--radius-md);
+    font-size: 0.98em;
+  }
+
+  .after-noc p {
+    margin: 0;
+  }
+
+  .after-noc strong {
+    color: var(--color-primary);
+  }
+</style>

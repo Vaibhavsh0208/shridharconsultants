@@ -1,0 +1,143 @@
+---
+import { site } from "../config/site";
+import { getContent, otherLang } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  switchHref: string; // this same page in the other language
+}
+
+const { lang, switchHref } = Astro.props;
+const t = getContent(lang);
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <div class="logo">
+      <img src={site.logoSvg} alt={t.ui.logoAlt} class="logo-img" />
+
+      <div class="logo-text">
+        <span class="brand">
+          {site.brandLine1}<span class="mobile-break"></span> {site.brandLine2}
+        </span>
+        <span class="tagline">{site.tagline}</span>
+      </div>
+    </div>
+
+    <a
+      class="lang-btn"
+      href={switchHref}
+      hreflang={otherLang(lang)}
+      lang={getContent(otherLang(lang)).htmlLang}
+    >
+      {t.switchLabel}
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    height: var(--header-height);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .logo-img {
+    height: 60%;
+    max-height: 48px;
+    width: auto;
+    background: var(--color-bg);
+    padding: 6px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .brand {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .tagline {
+    font-size: clamp(11px, 1.5vw, 13px);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lang-btn {
+    margin-left: 15px;
+    color: var(--color-on-primary);
+    border: 1px solid var(--color-on-primary-border);
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: var(--btn-font-weight);
+    flex-shrink: 0;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .lang-btn:hover,
+  .lang-btn:focus-visible {
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+
+  .mobile-break {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-break {
+      display: block;
+    }
+
+    .lang-btn {
+      margin-right: 10px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .tagline {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+  }
+</style>

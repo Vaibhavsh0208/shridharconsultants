@@ -1,0 +1,89 @@
+---
+import { getContent, localePath } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+const home = localePath("/", lang);
+
+// Section ids on the home page, in menu order
+const links = [
+  { id: "home", label: t.nav.home },
+  { id: "access-permission", label: t.nav.accessPermission },
+  { id: "services", label: t.nav.services },
+  { id: "process", label: t.nav.process },
+  { id: "experience", label: t.nav.experience },
+  { id: "examples", label: t.nav.examples },
+  { id: "faq", label: t.nav.faq },
+];
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    {links.map((link) => <a href={`${home}#${link.id}`}>{link.label}</a>)}
+    <!-- Every page has the contact section, so this stays on the current page -->
+    <a href="#contact">{t.nav.contact}</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: var(--header-height);
+    z-index: var(--z-nav);
+    background: var(--color-primary);
+    padding: 10px 0;
+  }
+
+  .nav-inner {
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+  }
+
+  .nav a {
+    color: var(--color-on-primary);
+    text-decoration: none;
+    font-size: var(--font-size-nav);
+    font-weight: 500;
+  }
+
+  .nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* On phones the menu becomes a scrolling row of chips */
+  @media (max-width: 768px) {
+    .nav {
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border-strong);
+      padding: 0;
+    }
+
+    .nav-inner {
+      justify-content: flex-start;
+      gap: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px var(--gutter);
+    }
+
+    .nav a {
+      background: var(--color-bg-chip);
+      color: var(--color-primary);
+      padding: var(--btn-small-padding);
+      border-radius: var(--radius-pill);
+      font-size: var(--btn-small-font-size);
+      font-weight: 600;
+      flex: 0 0 auto;
+    }
+
+    .nav a:hover {
+      text-decoration: none;
+    }
+  }
+</style>

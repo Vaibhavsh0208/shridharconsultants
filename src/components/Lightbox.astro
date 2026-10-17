@@ -1,0 +1,309 @@
+---
+// Full-screen image viewer built on the native <dialog> element.
+//
+// Zoom works by making the photo itself bigger inside a scrollable box, never by
+// scaling the page or using transform. That is what keeps the photo from leaving
+// the screen (the box can only scroll to the photo's own edges) and the close
+// button in place (it is outside the scrolling box).
+interface Props {
+  label: string; // accessible name of the dialog
+  closeLabel: string; // accessible name of the close button
+}
+
+const { label, closeLabel } = Astro.props;
+---
+
+<dialog id="lightbox" class="lightbox" aria-label={label}>
+  <div class="stage">
+    <img class="photo" src="" alt="" />
+  </div>
+  <button type="button" class="close" aria-label={closeLabel}>&times;</button>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("#lightbox");
+  const stage = dialog?.querySelector<HTMLElement>(".stage");
+  const photo = dialog?.querySelector<HTMLImageElement>(".photo");
+  const closeButton = dialog?.querySelector<HTMLButtonElement>(".close");
+
+  if (dialog && stage && photo && closeButton) {
+    initLightbox(dialog, stage, photo, closeButton);
+  }
+
+  function initLightbox(
+    dialog: HTMLDialogElement,
+    stage: HTMLElement,
+    photo: HTMLImageElement,
+    closeButton: HTMLButtonElement,
+  ) {
+    type Point = { x: number; y: number };
+
+    const MARGIN = 16; // space around the photo when it fits the screen
+    // Zoom is a multiple of the fitted size: 1 = fits the screen. The most you can
+    // zoom in is the photo's own size, but never less than 2x or more than 3x.
+    const MOST_ZOOM = { atLeast: 2, atMost: 3 };
+    const SNAP_TO_FIT = 1.05; // zooming OUT below this snaps back to exactly "fit"
+    const CLICK_ZOOM = 2; // a click at "fit" zooms in to this
+    const DOUBLE_CLICK = { ms: 300, px: 30 }; // two clicks this close count as a double click
+    let scale = 1;
+
+    const clamp = (value: number, min: number, max: number) =>
+      Math.min(Math.max(value, min), max);
+
+    // Width of the photo when it fits completely inside the screen
+    function fitWidth() {
+      const { naturalWidth: w, naturalHeight: h } = photo;
+      const ratio = Math.min(
+        (stage.clientWidth - MARGIN * 2) / w,
+        (stage.clientHeight - MARGIN * 2) / h,
+        1,
+      );
+      return w * ratio;
+    }
+
+    function maxScale() {
+      const { atLeast, atMost } = MOST_ZOOM;
+      return clamp(photo.naturalWidth / fitWidth(), atLeast, atMost);
+    }
+
+    // Size the photo for the current scale. `point` is the screen position to keep
+    // fixed (the pinch centre or the click), so that spot stays under the fingers.
+    function render(point?: Point) {
+      if (!photo.naturalWidth) {
+        photo.style.width = "";
+        return;
+      }
+      const before = photo.getBoundingClientRect();
+
+      photo.style.width = `${fitWidth() * scale}px`;
+      dialog.classList.toggle("zoomed", scale > 1);
+
+      if (scale === 1) {
+        stage.scrollTo(0, 0);
+        return;
+      }
+      // The browser keeps scroll positions inside the photo's edges on its own
+      const box = stage.getBoundingClientRect();
+      const x = point ? (point.x - before.left) / before.width : 0.5;
+      const y = point ? (point.y - before.top) / before.height : 0.5;
+      const pointerX = point ? point.x - box.left : box.width / 2;
+      const pointerY = point ? point.y - box.top : box.height / 2;
+      stage.scrollLeft = x * photo.offsetWidth - pointerX;
+      stage.scrollTop = y * photo.offsetHeight - pointerY;
+    }
+
+    function setScale(next: number, point?: Point) {
+      let clamped = clamp(next, 1, maxScale());
+      // Only snap while zooming out. Zooming in from "fit" takes many tiny steps (a
+      // trackpad pinch sends ~1% per event), and snapping those would undo each one.
+      if (clamped < scale && clamped < SNAP_TO_FIT) clamped = 1;
+      if (clamped === scale) return;
+      scale = clamped;
+      render(point);
+    }
+
+    async function open(source: HTMLImageElement, fullSrc?: string) {
+      // the thumbnail is small; data-full points at the large copy
+      photo.src = fullSrc || source.currentSrc || source.src;
+      photo.alt = source.alt;
+      await photo.decode().catch(() => {});
+      scale = 1;
+      dialog.showModal();
+      render();
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-lightbox]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const image = trigger.querySelector("img");
+        if (image) open(image, trigger.dataset.full);
+      });
+    });
+
+    // Click or tap at "fit" zooms in. A single click while zoomed does nothing, so a
+    // stray click never throws the zoom away; a double click returns to "fit".
+    let lastClick: (Point & { time: number; zoomedIn: boolean }) | null = null;
+    photo.addEventListener("click", (event) => {
+      const point = { x: event.clientX, y: event.clientY };
+      const previous = lastClick;
+      const isSecondClick =
+        previous !== null &&
+        event.timeStamp - previous.time < DOUBLE_CLICK.ms &&
+        Math.hypot(point.x - previous.x, point.y - previous.y) < DOUBLE_CLICK.px;
+      // the second click of a double click at "fit" must not undo the zoom the first one made
+      let zoomedIn = isSecondClick && previous !== null && previous.zoomedIn;
+
+      if (scale === 1) {
+        setScale(Math.min(CLICK_ZOOM, maxScale()), point);
+        zoomedIn = true;
+      } else if (isSecondClick && !zoomedIn) {
+        setScale(1, point);
+      }
+      lastClick = { ...point, time: event.timeStamp, zoomedIn };
+    });
+
+    // Clicking the empty area around the photo closes it
+    stage.addEventListener("click", (event) => {
+      if (event.target === stage) dialog.close();
+    });
+    closeButton.addEventListener("click", () => dialog.close());
+
+    // Esc closes the dialog natively. Reset everything when it closes.
+    dialog.addEventListener("close", () => {
+      scale = 1;
+      dialog.classList.remove("zoomed");
+      photo.removeAttribute("src");
+      photo.style.width = "";
+    });
+
+    // Ctrl+scroll and trackpad pinch would zoom the whole page: zoom the photo instead
+    dialog.addEventListener(
+      "wheel",
+      (event) => {
+        if (!event.ctrlKey) return;
+        event.preventDefault();
+        // a mouse wheel notch (100) is much bigger than a trackpad pinch tick (about 1 to 10)
+        const step = clamp(event.deltaY, -25, 25);
+        setScale(scale * Math.exp(-step * 0.02), { x: event.clientX, y: event.clientY });
+      },
+      { passive: false },
+    );
+
+    // Two-finger pinch. Touch events (not pointer events) because the browser cancels
+    // pointer events once it starts scrolling, which would end the pinch half way.
+    // One finger is left alone so the browser scrolls (pans) the zoomed photo.
+    let pinch: { distance: number; scale: number } | null = null;
+    const distance = (t: TouchList) =>
+      Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    const centre = (t: TouchList): Point => ({
+      x: (t[0].clientX + t[1].clientX) / 2,
+      y: (t[0].clientY + t[1].clientY) / 2,
+    });
+
+    function startPinch(touches: TouchList) {
+      pinch = touches.length === 2 ? { distance: distance(touches), scale } : null;
+    }
+    stage.addEventListener("touchstart", (event) => startPinch(event.touches), { passive: true });
+    stage.addEventListener("touchend", (event) => startPinch(event.touches), { passive: true });
+    stage.addEventListener("touchcancel", () => (pinch = null), { passive: true });
+    stage.addEventListener(
+      "touchmove",
+      (event) => {
+        if (!pinch || event.touches.length !== 2) return;
+        if (event.cancelable) event.preventDefault(); // no page zoom, no scrolling mid-pinch
+        setScale(pinch.scale * (distance(event.touches) / pinch.distance), centre(event.touches));
+      },
+      { passive: false },
+    );
+
+    // Safari (Mac trackpad and iPhone) reports pinch as its own "gesture" events and
+    // would zoom the page, so block that and zoom the photo from them instead. On an
+    // iPhone the touch events above already do the work, so skip those there.
+    type GestureEvent = Event & { scale: number; clientX?: number; clientY?: number };
+    let gestureStartScale = 1;
+    dialog.addEventListener("gesturestart", (event) => {
+      event.preventDefault();
+      gestureStartScale = scale;
+    });
+    dialog.addEventListener("gesturechange", (event) => {
+      event.preventDefault();
+      if (pinch) return;
+      const { scale: factor, clientX, clientY } = event as GestureEvent;
+      const point = clientX === undefined || clientY === undefined ? undefined : { x: clientX, y: clientY };
+      setScale(gestureStartScale * factor, point);
+    });
+
+    window.addEventListener("resize", () => {
+      if (!dialog.open) return;
+      scale = Math.min(scale, maxScale());
+      render();
+    });
+  }
+</script>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+    /* no pinch or double-tap zoom of the page while the lightbox is open */
+    touch-action: pan-x pan-y;
+  }
+
+  .lightbox::backdrop {
+    /* the fallback covers older browsers that do not pass variables into ::backdrop */
+    background: var(--color-backdrop, rgba(0, 0, 0, 0.82));
+    backdrop-filter: blur(6px);
+  }
+
+  /* The page behind must not scroll or zoom */
+  :global(html:has(#lightbox[open])) {
+    overflow: hidden;
+  }
+
+  /* The only scrolling box: the zoomed photo scrolls inside it */
+  .stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    overflow: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+  }
+
+  /* margin: auto centres the photo when it is smaller than the screen, and lets
+     the whole photo be scrolled to when it is bigger (flex centring would not) */
+  .photo {
+    flex: none;
+    display: block;
+    margin: auto;
+    max-width: none;
+    height: auto;
+    border-radius: var(--radius-md);
+    cursor: zoom-in;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .lightbox.zoomed .photo {
+    cursor: default;
+    border-radius: 0;
+  }
+
+  /* Outside the scrolling box, so zooming never moves it */
+  .close {
+    position: absolute;
+    top: max(14px, env(safe-area-inset-top));
+    right: max(14px, env(safe-area-inset-right));
+    width: var(--close-btn-size);
+    height: var(--close-btn-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-on-primary);
+    background: var(--color-control-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      background 0.2s ease;
+  }
+
+  .close:hover {
+    transform: scale(1.1);
+    background: var(--color-control-bg-hover);
+  }
+</style>

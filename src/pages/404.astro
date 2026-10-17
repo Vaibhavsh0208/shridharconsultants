@@ -1,0 +1,32 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import ArrowLink from "../components/ArrowLink.astro";
+import ContactSection from "../components/sections/ContactSection.astro";
+---
+
+<!--
+  GitHub Pages serves this one file for every address that does not exist, in either
+  language, so it is a single English page. The language toggle in the header leads to
+  the Hindi home page, and the page is kept out of search results.
+-->
+<MainLayout
+  title="Page not found | Shridhar Consultants"
+  description="The page you are looking for does not exist or has moved."
+  lang="en"
+  noindex
+>
+  <section class="not-found">
+    <div class="container">
+      <h1 class="section-title">Page not found</h1>
+      <p>The page you are looking for does not exist or has moved.</p>
+      <ArrowLink href="/" label="Go to the home page" />
+    </div>
+  </section>
+  <ContactSection lang="en" />
+</MainLayout>
+
+<style>
+  .not-found {
+    min-height: 40vh;
+  }
+</style>

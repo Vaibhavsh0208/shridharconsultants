@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://shridharconsultants.in/sitemap.xml

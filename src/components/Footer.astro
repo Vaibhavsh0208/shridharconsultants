@@ -1,0 +1,31 @@
+---
+import { getContent } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const text = getContent(lang).footer.replace("{year}", String(new Date().getFullYear()));
+---
+
+<footer class="footer">
+  <div class="container">
+    <p>{text}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    text-align: center;
+    padding: 18px 0;
+    font-size: var(--font-size-small);
+  }
+
+  .footer p {
+    margin: 0;
+  }
+</style>

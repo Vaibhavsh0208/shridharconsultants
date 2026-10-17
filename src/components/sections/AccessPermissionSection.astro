@@ -1,0 +1,37 @@
+---
+import ArrowLink from "../ArrowLink.astro";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
+const isFull = mode === "full";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
+---
+
+<section id={isFull ? undefined : "access-permission"} class="access-permission">
+  <div class="container">
+    <Heading class="section-title">{t.accessPermission.title}</Heading>
+
+    {t.accessPermission.summary.map((text) => <p>{text}</p>)}
+    {isFull && t.accessPermission.full.map((text) => <p>{text}</p>)}
+
+    {
+      !isFull && (
+        <ArrowLink href={localePath("/access-permission", lang)} label={t.accessPermission.readMore} />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  p {
+    text-align: justify;
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+import ArrowLink from "../ArrowLink.astro";
+import { site } from "../../config/site";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
+const isFull = mode === "full";
+const Heading = isFull ? "h1" : "h2";
+
+// The home page shows the first few questions and the FAQ page shows all of them.
+// The structured data lists exactly the questions shown on the page.
+const items = isFull ? t.faq.items : t.faq.items.slice(0, site.faqOnHome);
+const hasMore = items.length < t.faq.items.length;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: t.htmlLang,
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<section id={isFull ? undefined : "faq"} class="faq">
+  <div class="container">
+    <Heading class="section-title">{t.faq.title}</Heading>
+
+    <div class="faq-list">
+      {
+        // The same name on every <details> makes the browser keep only one open at a time
+        items.map((item) => (
+          <details class="faq-item" name="faq">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+
+    {
+      hasMore && (
+        <div class="faq-more">
+          <ArrowLink href={localePath("/faq", lang)} label={t.faq.viewAll} />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    margin-top: 20px;
+  }
+
+  .faq-more {
+    margin-top: 20px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    padding: 16px 40px 16px 0;
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* plus sign: horizontal bar + vertical bar */
+  summary::before,
+  summary::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    background: var(--color-primary);
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease;
+  }
+
+  summary::before {
+    right: 20px;
+    width: 14px;
+    height: 2px;
+  }
+
+  summary::after {
+    right: 26px;
+    width: 2px;
+    height: 14px;
+  }
+
+  /* when open, hide the vertical bar to leave a minus sign */
+  .faq-item[open] summary::after {
+    opacity: 0;
+  }
+
+  .faq-item p {
+    margin: 0 0 15px 0;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    text-align: justify;
+  }
+</style>

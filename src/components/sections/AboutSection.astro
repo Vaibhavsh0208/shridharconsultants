@@ -1,0 +1,49 @@
+---
+import ArrowLink from "../ArrowLink.astro";
+import { site } from "../../config/site";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
+const isFull = mode === "full";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
+---
+
+<section id={isFull ? undefined : "about"} class="about">
+  <div class="container">
+    <Heading class="section-title">{isFull ? t.about.pageTitle : t.about.title}</Heading>
+
+    {t.about.summary.map((text) => <p>{text}</p>)}
+
+    {
+      isFull && (
+        <>
+          {t.about.full.map((text) => (
+            <p>{text}</p>
+          ))}
+          <p>
+            {t.about.guidelines.lead}{" "}
+            <a href={site.guidelinesPdf} target="_blank">
+              {t.about.guidelines.link}
+            </a>
+          </p>
+        </>
+      )
+    }
+
+    {!isFull && <ArrowLink href={localePath("/about", lang)} label={t.about.readMore} />}
+  </div>
+</section>
+
+<style>
+  p {
+    text-align: justify;
+  }
+</style>
