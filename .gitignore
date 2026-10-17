@@ -5,6 +5,7 @@ dist/
 .output/
 .cache/
 .codex/
-index.html
+.serena/
 *.log
 .env
+.DS_Store

@@ -1,20 +1,5 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import AboutSection from '../components/sections/AboutSection.astro';
-import BackButton from '../components/BackButton.astro';
-import ContactSection from '../components/sections/ContactSection.astro';
+import AboutPage from "../views/AboutPage.astro";
 ---
 
-<MainLayout
-  title="About Shridhar Consultants | 20+ Years Experience in NHAI NOC"
-  description="Shridhar Consultants has 20+ years of experience in NHAI NOC, highway access permission and utility approvals across Haryana, Punjab and Delhi NCR."
->
-
-  <div class="container page-top-space">
-    <BackButton section="about" />
-  </div>
-
-  <AboutSection mode="full" />
-  <ContactSection />
-
-</MainLayout>
+<AboutPage lang="en" />

@@ -1,0 +1,24 @@
+---
+import ArrowLink from "./ArrowLink.astro";
+import { getContent, localePath } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  section?: string; // home-page section to return to
+}
+
+const { lang, section = "" } = Astro.props;
+const home = localePath("/", lang);
+const href = section ? `${home}#${section}` : home;
+---
+
+<div class="container back-wrapper">
+  <ArrowLink href={href} label={getContent(lang).ui.backToHome} direction="back" />
+</div>
+
+<style>
+  .back-wrapper {
+    margin-top: 40px;
+  }
+</style>

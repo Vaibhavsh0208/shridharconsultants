@@ -1,58 +1,52 @@
+---
+import { site } from "../../config/site";
+import { getContent } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+
 <section id="contact" class="contact">
   <div class="container">
+    <h2>{t.contact.title}</h2>
 
-    <h2 class="en">Contact Us</h2>
-    <h2 class="hi hidden">संपर्क</h2>
+    <p><strong>{t.contact.proprietor}</strong> {site.proprietor}</p>
 
-    <p class="en"><strong>Proprietor:</strong> Mrs. Renu Bala</p>
-    <p class="hi hidden"><strong>स्वामिनी:</strong> Mrs. Renu Bala</p>
-
-    <p class="en">
-      <strong>Call:</strong>
-      <a href="tel:+917988008722">+91 79880 08722</a>
+    <p>
+      <strong>{t.contact.call}</strong>{" "}
+      <a href={`tel:${site.phone.tel}`}>{site.phone.display}</a>
     </p>
 
-    <p class="hi hidden">
-      <strong>फ़ोन:</strong>
-      <a href="tel:+917988008722">+91 79880 08722</a>
+    <p>
+      <strong>{t.contact.whatsapp}</strong>{" "}
+      <a href={site.whatsapp.url} target="_blank" rel="noopener noreferrer">{site.whatsapp.display}</a>
     </p>
 
-    <p class="en">
-      <strong>WhatsApp:</strong>
-      <a href="https://wa.me/919416665796" target="_blank" rel="noopener noreferrer">
-        +91 94166 65796
-      </a>
-    </p>
-
-    <p class="hi hidden">
-      <strong>व्हाट्सऐप:</strong>
-      <a href="https://wa.me/919416665796" target="_blank" rel="noopener noreferrer">
-        +91 94166 65796
-      </a>
-    </p>
-
-    <p class="en">
-      <strong>Address:</strong>
-      #17/7, New Partap Nagar, Behind Vita Milk Plant, Ambala City, Haryana - 134007
+    <p>
+      <strong>{t.contact.address}</strong>{" "}
+      {site.address.display}
       <br />
-      <strong>Google Maps:</strong>
-      <a href="https://maps.app.goo.gl/a6M29N3JAuw6xX6FA" target="_blank" rel="noopener noreferrer">
-        Shridhar Consultants
-      </a>
+      <strong>{t.contact.maps}</strong>{" "}
+      <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer">{site.name}</a>
     </p>
 
-    <p class="hi hidden">
-      <strong>पता:</strong>
-      #17/7, New Partap Nagar, Behind Vita Milk Plant, Ambala City, Haryana - 134007
-      <br />
-      <strong>Google Maps:</strong>
-      <a href="https://maps.app.goo.gl/a6M29N3JAuw6xX6FA" target="_blank" rel="noopener noreferrer">
-        Shridhar Consultants
-      </a>
-    </p>
-
-    <p class="en"><strong>Working Hours:</strong> Mon–Sat, 10:00 AM – 6:00 PM</p>
-    <p class="hi hidden"><strong>कार्य समय:</strong> सोम–शनि, 10:00 AM – 6:00 PM</p>
-
+    <p><strong>{t.contact.hours}</strong> {t.contact.hoursValue}</p>
   </div>
 </section>
+
+<style>
+  p {
+    text-align: justify;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+  }
+</style>

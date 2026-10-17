@@ -1,0 +1,87 @@
+/*
+  Global styles: only what genuinely applies to the whole site
+  (reset, base typography, page layout). Everything specific to one component
+  lives in that component's own <style> block.
+*/
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  word-wrap: break-word;
+  line-height: var(--line-height-body);
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+/* Section headings. On the full pages the section title is the page's h1; it keeps
+   the same look as the h2 it is on the home page (class section-title). */
+h2,
+.section-title {
+  font-size: var(--font-size-h2);
+  font-weight: 600;
+  line-height: var(--line-height-body);
+  margin: 0.83em 0 15px;
+  color: var(--color-primary);
+}
+
+h2::after,
+.section-title::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--color-primary);
+  margin-top: 6px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: auto;
+  padding: 0 var(--gutter);
+}
+
+/* Every section on a page: spacing, divider, alternating background */
+main > section {
+  padding: 1px 0 var(--section-padding-bottom) 0;
+  border-bottom: 1px solid var(--color-border);
+  scroll-margin-top: var(--scroll-offset);
+}
+
+main > section:nth-of-type(even) {
+  background: var(--color-bg-alt);
+}
+
+main > section:nth-of-type(odd) {
+  background: var(--color-bg);
+}

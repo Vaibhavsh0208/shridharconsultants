@@ -1,0 +1,62 @@
+---
+// The site's one link-with-arrow style: "read more" links point forward,
+// "back" links point backward.
+interface Props {
+  href: string;
+  label: string; // describe the destination: it is the link text search engines read
+  direction?: "forward" | "back";
+}
+
+const { href, label, direction = "forward" } = Astro.props;
+const back = direction === "back";
+---
+
+<a href={href} class:list={["arrow-link", { back }]}>
+  {back && <span class="arrow" aria-hidden="true">&larr;</span>}
+  <span class="label">{label}</span>
+  {!back && <span class="arrow" aria-hidden="true">&rarr;</span>}
+</a>
+
+<style>
+  .arrow-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 4px 0;
+    color: var(--color-primary);
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+    text-decoration: none;
+  }
+
+  .label {
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .arrow-link:hover .label,
+  .arrow-link:focus-visible .label {
+    border-bottom-color: currentColor;
+  }
+
+  /* the arrow nudges in the direction it points */
+  .arrow-link:hover .arrow,
+  .arrow-link:focus-visible .arrow {
+    transform: translateX(4px);
+  }
+
+  .arrow-link.back:hover .arrow,
+  .arrow-link.back:focus-visible .arrow {
+    transform: translateX(-4px);
+  }
+
+  .arrow-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+</style>

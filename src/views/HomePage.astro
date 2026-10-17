@@ -1,0 +1,33 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import HeroSummary from "../components/sections/HeroSummary.astro";
+import AboutSection from "../components/sections/AboutSection.astro";
+import AccessPermissionSection from "../components/sections/AccessPermissionSection.astro";
+import ServicesSection from "../components/sections/ServicesSection.astro";
+import ProcessSection from "../components/sections/ProcessSection.astro";
+import ExperienceSection from "../components/sections/ExperienceSection.astro";
+import ExamplesSection from "../components/sections/ExamplesSection.astro";
+import FAQSection from "../components/sections/FAQSection.astro";
+import ContactSection from "../components/sections/ContactSection.astro";
+import { getContent } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { title, description } = getContent(lang).meta.home;
+---
+
+<MainLayout title={title} description={description} lang={lang}>
+  <HeroSummary lang={lang} />
+  <AboutSection lang={lang} mode="summary" />
+  <AccessPermissionSection lang={lang} mode="summary" />
+  <ServicesSection lang={lang} mode="summary" />
+  <ProcessSection lang={lang} mode="summary" />
+  <ExperienceSection lang={lang} />
+  <ExamplesSection lang={lang} mode="summary" />
+  <FAQSection lang={lang} mode="summary" />
+  <ContactSection lang={lang} />
+</MainLayout>

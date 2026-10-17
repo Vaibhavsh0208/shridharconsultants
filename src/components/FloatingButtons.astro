@@ -1,0 +1,112 @@
+---
+import { site } from "../config/site";
+import { getContent } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+
+<a href={`tel:${site.phone.tel}`} class="float-call" aria-label={t.ui.callLabel}>
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+    <path
+      d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011-.24 
+        11.36 11.36 0 003.57.57 1 1 0 011 1v3.5a1 1 0 01-1 1 
+        C10.07 22 2 13.93 2 4a1 1 0 011-1H6.5a1 1 0 011 1 
+        11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1l-2.2 2.22z"></path>
+  </svg>
+</a>
+<a href={site.whatsapp.url} class="float-wa" target="_blank" aria-label={t.ui.whatsappLabel}>
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+    <path
+      d="M20.52 3.48A11.82 11.82 0 0012.03 0C5.4 0 .05 5.35.05 11.98
+        c0 2.11.55 4.18 1.6 6L0 24l6.19-1.62a11.94 11.94 0 005.84 1.49h.01
+        c6.63 0 11.98-5.35 11.98-11.98 0-3.2-1.25-6.2-3.5-8.41zM12.04
+        21.8c-1.83 0-3.63-.49-5.2-1.42l-.37-.22-3.67.96.98-3.58-.24-.37
+        a9.77 9.77 0 01-1.5-5.19c0-5.41 4.4-9.81 9.81-9.81 2.62 0
+        5.08 1.02 6.94 2.88a9.77 9.77 0 012.87 6.93c0 5.41-4.4
+        9.82-9.81 9.82zm5.43-7.36c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15
+        -.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.28-.47-2.44-1.5
+        -.9-.8-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52
+        .15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22
+        -.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05
+        1.02-1.05 2.49 0 1.47 1.08 2.89 1.23 3.09.15.2 2.13
+        3.26 5.16 4.57.72.31 1.28.5 1.72.64.72.23
+        1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.41.25-.7.25-1.3.17-1.42
+        -.07-.12-.27-.2-.57-.35z"></path>
+  </svg>
+</a>
+
+<!-- Fade the buttons out once the contact section scrolls into view -->
+<script>
+  const contact = document.getElementById("contact");
+  const buttons = document.querySelectorAll<HTMLElement>(".float-call, .float-wa");
+
+  function updateButtons() {
+    if (!contact) return;
+    const hide = contact.getBoundingClientRect().top < window.innerHeight * 0.6;
+    buttons.forEach((button) => {
+      button.style.opacity = hide ? "0" : "1";
+      button.style.pointerEvents = hide ? "none" : "auto";
+    });
+  }
+
+  window.addEventListener("scroll", updateButtons);
+  updateButtons();
+</script>
+
+<style>
+  .float-call,
+  .float-wa {
+    position: fixed;
+    right: 18px;
+    width: var(--float-btn-size);
+    height: var(--float-btn-size);
+    border-radius: 50%;
+    color: var(--color-on-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-float);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    transition:
+      transform 0.2s ease,
+      opacity 0.3s ease;
+    z-index: var(--z-float);
+  }
+
+  .float-call {
+    bottom: 110px;
+    background: var(--color-primary);
+  }
+
+  .float-wa {
+    bottom: 30px;
+    background: var(--color-whatsapp);
+  }
+
+  .float-call:active,
+  .float-wa:active {
+    transform: scale(0.92);
+  }
+
+  @media (hover: hover) {
+    .float-call:hover,
+    .float-wa:hover {
+      transform: scale(1.08);
+    }
+  }
+
+  /* Phones only */
+  @media (min-width: 769px) {
+    .float-call,
+    .float-wa {
+      display: none;
+    }
+  }
+</style>

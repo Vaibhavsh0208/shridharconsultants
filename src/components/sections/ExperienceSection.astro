@@ -1,21 +1,24 @@
 ---
-const { mode = "summary", readMoreLink = "/experience" } = Astro.props;
-const isFull = mode === "full";
+import { getContent } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
 ---
 
-<section id={isFull ? undefined : "experience"} class="experience">
+<section id="experience" class="experience">
   <div class="container">
-    <h2 class="en">Experience</h2>
-    <h2 class="hi hidden">अनुभव</h2>
-    <p class="en">
-      Working since 2005 across Haryana, Punjab and Delhi NCR. Numerous cases
-      handled related to highway access permissions, retail outlet approvals and
-      utility crossings.
-    </p>
-    <p class="hi hidden">
-      वर्ष 2005 से हरियाणा, पंजाब एवं दिल्ली एनसीआर में कार्यरत। हाईवे एक्सेस
-      अनुमति, रिटेल आउटलेट अनुमोदन और यूटिलिटी क्रॉसिंग से संबंधित अनेक मामलों
-      का अनुभव।
-    </p>
+    <h2>{t.experience.title}</h2>
+    <p>{t.experience.text}</p>
   </div>
 </section>
+
+<style>
+  p {
+    text-align: justify;
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import BackLink from "../components/BackLink.astro";
+import ExamplesSection from "../components/sections/ExamplesSection.astro";
+import ContactSection from "../components/sections/ContactSection.astro";
+import { getContent } from "../i18n";
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+const { title, description } = t.meta.examples;
+---
+
+<MainLayout title={title} description={description} lang={lang} crumb={t.nav.examples}>
+  <BackLink lang={lang} section="examples" />
+  <ExamplesSection lang={lang} mode="full" />
+  <ContactSection lang={lang} />
+</MainLayout>

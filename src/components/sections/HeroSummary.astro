@@ -1,32 +1,98 @@
+---
+import { Image } from "astro:assets";
+import nhaiLogo from "../../assets/images/nhai-logo.png";
+import { getContent } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+---
+
 <section id="home" class="hero">
   <div class="container hero-layout">
-    
     <div class="hero-content">
-      <h1 class="en">
-        NHAI NOC & Highway Access Permission Consultant in Haryana, Punjab & Delhi NCR
-      </h1>
-      <h1 class="hi hidden">
-        हरियाणा, पंजाब एवं दिल्ली एनसीआर में NHAI NOC एवं हाईवे अनुमति परामर्श सेवा
-      </h1>
-
-      <p class="en">
-        Serving clients since 2005 across Haryana, Punjab and Delhi NCR for approvals related to properties and utilities along National Highways.
-      </p>
-      <p class="hi hidden">
-        वर्ष 2005 से हरियाणा, पंजाब और दिल्ली एनसीआर में नेशनल हाईवे से संबंधित कार्यों में सेवाएँ प्रदान करते हुए।
-      </p>
-
-      <p class="hero-note en">
-        Consultation available for new proposals as well as cases requiring correction or resubmission.
-      </p>
-      <p class="hero-note hi hidden">
-        नए प्रस्तावों के साथ-साथ सुधार या पुनः प्रस्तुत करने वाले मामलों के लिए भी परामर्श उपलब्ध हैं।
-      </p>
+      <h1>{t.hero.title}</h1>
+      <p>{t.hero.intro}</p>
+      <p class="hero-note">{t.hero.note}</p>
     </div>
 
     <div class="hero-nhai">
-      <img src="/images/nhai-logo.png" loading="eager" alt="NHAI Logo" />
+      <!-- shown about 150px wide; widths give a sharp copy for 2x screens, served as WebP -->
+      <Image
+        src={nhaiLogo}
+        alt={t.ui.nhaiLogoAlt}
+        widths={[152, 304]}
+        sizes="152px"
+        format="webp"
+        loading="eager"
+      />
     </div>
-
   </div>
 </section>
+
+<style>
+  .hero {
+    background: var(--gradient-hero);
+    padding: 50px 0 55px 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero-content {
+    flex: 1;
+  }
+
+  .hero h1 {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    max-width: 700px;
+    margin: 15px auto 0 auto;
+  }
+
+  .hero-note {
+    margin-top: 18px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .hero-nhai {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-nhai img {
+    height: 100px;
+    width: auto;
+    opacity: 0.9;
+    display: block;
+    max-width: 100%;
+    margin-top: 21px;
+  }
+
+  @media (max-width: 768px) {
+    .hero-layout {
+      flex-direction: column;
+    }
+
+    .hero-nhai img {
+      height: 80px;
+      margin-top: 0;
+    }
+  }
+</style>

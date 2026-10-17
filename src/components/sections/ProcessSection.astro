@@ -1,80 +1,71 @@
 ---
-const { mode = "summary", readMoreLink = "/process" } = Astro.props;
+import ArrowLink from "../ArrowLink.astro";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
 const isFull = mode === "full";
-import ReadMoreButton from "../ReadMoreButton.astro";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
+const steps = isFull ? t.process.fullList : t.process.summaryList;
 ---
 
 <section id={isFull ? undefined : "process"} class="process">
   <div class="container">
+    <Heading class="section-title">{isFull ? t.process.pageTitle : t.process.title}</Heading>
 
-    <h2 class="en">Approval Process</h2>
-    <h2 class="hi hidden">अनुमोदन प्रक्रिया</h2>
+    <ol>
+      {steps.map((step) => <li>{step}</li>)}
+    </ol>
 
-    {/* SUMMARY */}
-    {!isFull && (
-      <>
-        <ol class="en">
-          <li>Initial discussion and review of documents</li>
-          <li>Site understanding and visit (if required)</li>
-          <li>Preparation of drawings and application documents</li>
-        </ol>
-
-        <ol class="hi hidden">
-          <li>प्रारम्भिक चर्चा एवं दस्तावेजों की जाँच</li>
-          <li>आवश्यक होने पर साइट निरीक्षण</li>
-          <li>ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
-        </ol>
-      </>
-    )}
-
-    {/* FULL */}
-    {isFull && (
-      <div class="process-full">
-
-        <ol class="en">
-          <li>Initial discussion and review of available documents</li>
-          <li>Site understanding and visit (if required)</li>
-          <li>Preparation of required drawings and application documents</li>
-          <li>Submission of proposal on the official NHAI/MoRTH portal</li>
-          <li>Payment of applicable government processing fees</li>
-          <li>Follow-up with the concerned NHAI authority</li>
-          <li>Handling technical queries and corrections</li>
-          <li>Issue of Provisional NOC approval</li>
-        </ol>
-
-        <ol class="hi hidden">
-          <li>प्रारम्भिक चर्चा एवं उपलब्ध दस्तावेजों की जाँच</li>
-          <li>आवश्यक होने पर साइट का निरीक्षण</li>
-          <li>आवश्यक ड्रॉइंग एवं आवेदन दस्तावेज़ तैयार करना</li>
-          <li>आधिकारिक NHAI/MoRTH पोर्टल पर प्रस्ताव जमा करना</li>
-          <li>सरकारी प्रोसेसिंग फीस जमा करना</li>
-          <li>संबंधित NHAI कार्यालय के साथ अनुवर्ती कार्यवाही</li>
-          <li>आपत्तियों/क्वेरी का समाधान एवं संशोधन</li>
-          <li>Provisional NOC स्वीकृति जारी होना</li>
-        </ol>
-
-        {/* SPECIAL BLOCK */}
+    {
+      isFull && (
         <div class="after-noc">
-
-          <p class="en">
-            <strong>Important:</strong> After issue of Provisional NOC, the applicant is generally given
-            one year to complete construction. After completion, Final NOC may be applied.
-            If construction cannot be completed in time, Extension of Time (EOT) may be required.
+          <p>
+            <strong>{t.process.importantLabel}</strong> {t.process.important}
           </p>
-
-          <p class="hi hidden">
-            <strong>महत्वपूर्ण:</strong> Provisional NOC जारी होने के बाद सामान्यतः एक वर्ष का समय
-            दिया जाता है। निर्माण पूर्ण होने पर Final NOC के लिए आवेदन किया जाता है।
-            समय पर कार्य पूरा न होने पर समयवृद्धि (EOT) आवश्यक हो सकती है।
-          </p>
-
         </div>
+      )
+    }
 
-      </div>
-    )}
-
-    {/* READ MORE */}
-    {!isFull && <ReadMoreButton href={readMoreLink} type="process" />}
-
+    {!isFull && <ArrowLink href={localePath("/process", lang)} label={t.process.viewFull} />}
   </div>
 </section>
+
+<style>
+  p,
+  li {
+    text-align: justify;
+  }
+
+  ol {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  .after-noc {
+    background: var(--color-bg-tint);
+    border-left: 4px solid var(--color-primary);
+    padding: 16px 18px;
+    margin-top: 28px;
+    border-radius: var(--radius-md);
+    font-size: 0.98em;
+  }
+
+  .after-noc p {
+    margin: 0;
+  }
+
+  .after-noc strong {
+    color: var(--color-primary);
+  }
+</style>

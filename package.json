@@ -1,9 +1,9 @@
 {
-  "name": "astro-temp",
+  "name": "shridhar-consultants",
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.22.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -12,6 +12,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.0.5"
+    "astro": "^7.4.0"
   }
 }

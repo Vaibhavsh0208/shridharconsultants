@@ -1,124 +1,49 @@
 ---
-const { mode = "summary", readMoreLink = "/about" } = Astro.props;
+import ArrowLink from "../ArrowLink.astro";
+import { site } from "../../config/site";
+import { getContent, localePath } from "../../i18n";
+import type { Lang } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+  mode?: "summary" | "full";
+}
+
+const { lang, mode = "summary" } = Astro.props;
+const t = getContent(lang);
 const isFull = mode === "full";
-import ReadMoreButton from "../ReadMoreButton.astro";
+// On the full pages the section title is the page's main heading (h1)
+const Heading = isFull ? "h1" : "h2";
 ---
 
 <section id={isFull ? undefined : "about"} class="about">
   <div class="container">
-    <h2 class="en">About Us</h2>
-    <h2 class="hi hidden">हमारे बारे में</h2>
+    <Heading class="section-title">{isFull ? t.about.pageTitle : t.about.title}</Heading>
 
-    <!-- SHORT CONTENT -->
-    <p class="en">
-      Shridhar Consultants assists individuals, companies and contractors in
-      obtaining No Objection Certificate (NOC) from NHAI for construction,
-      access and utility crossings along National Highways in Haryana, Punjab
-      and Delhi NCR. With more than two decades of experience, we guide clients
-      through documentation, drawings and approval procedures.
-    </p>
+    {t.about.summary.map((text) => <p>{text}</p>)}
 
-    <p class="hi hidden">
-      Shridhar Consultants व्यक्तियों, कंपनियों तथा ठेकेदारों को हरियाणा, पंजाब
-      एवं दिल्ली एनसीआर में नेशनल हाईवे के साथ या उसके पार निर्माण, प्रवेश मार्ग
-      तथा विभिन्न यूटिलिटी क्रॉसिंग के लिए NHAI से अनापत्ति प्रमाण पत्र (NOC)
-      प्राप्त करने में सहायता प्रदान करता है। दो दशकों से अधिक अनुभव के साथ हम
-      दस्तावेज़, ड्रॉइंग और अनुमोदन प्रक्रिया में मार्गदर्शन करते हैं।
-    </p>
-
-    <!-- FULL CONTENT (only if full mode) -->
     {
       isFull && (
-        <div class="about-full">
-          <p class="en">
-            Shridhar Consultants is a trusted consultancy firm specializing in
-            obtaining No Objection Certificates (NOC) from the National Highways
-            Authority of India (NHAI). We assist individuals, companies,
-            developers, and contractors in securing approvals for construction,
-            access permissions, and utility crossings along or across National
-            Highways in Haryana, Punjab, and Delhi NCR.
-          </p>
-
-          <p class="hi hidden">
-            Shridhar Consultants एक विश्वसनीय कंसल्टेंसी फर्म है, जो नेशनल हाईवे
-            अथॉरिटी ऑफ इंडिया (NHAI) से अनापत्ति प्रमाण पत्र (NOC) प्राप्त करने
-            में विशेषज्ञता रखती है। हम व्यक्तियों, कंपनियों, डेवलपर्स और
-            ठेकेदारों को हरियाणा, पंजाब और दिल्ली एनसीआर में राष्ट्रीय
-            राजमार्गों के साथ या उनके पार निर्माण, एक्सेस अनुमति और यूटिलिटी
-            क्रॉसिंग के लिए सहायता प्रदान करते हैं।
-          </p>
-
-          <p class="en">
-            With over 20 years of experience, we provide end-to-end support
-            including documentation preparation, technical drawing design as per
-            NHAI standards, application submission, and continuous follow-up
-            with authorities to ensure timely approvals.
-          </p>
-
-          <p class="hi hidden">
-            20 वर्षों से अधिक अनुभव के साथ, हम दस्तावेज़ तैयार करने, NHAI मानकों
-            के अनुसार तकनीकी ड्रॉइंग बनाने, आवेदन जमा करने तथा संबंधित
-            अधिकारियों के साथ निरंतर फॉलो-अप सहित पूर्ण सहायता प्रदान करते हैं,
-            ताकि समय पर अनुमोदन प्राप्त हो सके।
-          </p>
-
-          <p class="en">
-            Our services cover access permissions, construction approvals near
-            highways, and utility crossings such as water pipelines, sewer
-            lines, electrical cables, optical fiber cables (OFC), gas pipelines,
-            and drainage systems for residential, commercial, and industrial
-            projects.
-          </p>
-
-          <p class="hi hidden">
-            हमारी सेवाओं में एक्सेस अनुमति, राष्ट्रीय राजमार्ग के पास निर्माण
-            स्वीकृति, तथा जल पाइपलाइन, सीवर लाइन, बिजली केबल, ऑप्टिकल फाइबर केबल
-            (OFC), गैस पाइपलाइन और ड्रेनेज सिस्टम जैसी यूटिलिटी क्रॉसिंग शामिल
-            हैं, जो आवासीय, वाणिज्यिक और औद्योगिक परियोजनाओं के लिए आवश्यक होती
-            हैं।
-          </p>
-
-          <p class="en">
-            We ensure that all submissions are accurate, compliant, and aligned
-            with regulatory requirements, minimizing delays and increasing the
-            chances of approval success.
-          </p>
-
-          <p class="hi hidden">
-            हम सुनिश्चित करते हैं कि सभी आवेदन सटीक, नियमों के अनुरूप और पूर्ण
-            हों, जिससे देरी कम हो और अनुमोदन मिलने की संभावना बढ़े।
-          </p>
-
-          <p class="en">
-            At Shridhar Consultants, we are committed to delivering reliable,
-            transparent, and efficient services, helping clients complete their
-            projects smoothly and without complications.
-          </p>
-
-          <p class="hi hidden">
-            Shridhar Consultants में हम विश्वसनीय, पारदर्शी और प्रभावी सेवाएँ
-            प्रदान करने के लिए प्रतिबद्ध हैं, जिससे हमारे ग्राहक अपनी परियोजनाओं
-            को सरलता और सफलता के साथ पूरा कर सकें।
-          </p>
-
-          <p class="en">
-            Refer official guidelines:
-            <a href="/documents/nhai-guidelines.pdf" target="_blank">
-              Download Latest NHAI NOC Guidelines
+        <>
+          {t.about.full.map((text) => (
+            <p>{text}</p>
+          ))}
+          <p>
+            {t.about.guidelines.lead}{" "}
+            <a href={site.guidelinesPdf} target="_blank">
+              {t.about.guidelines.link}
             </a>
           </p>
-
-          <p class="hi hidden">
-            आधिकारिक दिशा-निर्देश देखें:
-            <a href="/documents/nhai-guidelines.pdf" target="_blank">
-              NHAI दिशा-निर्देश डाउनलोड करें
-            </a>
-          </p>
-        </div>
+        </>
       )
     }
 
-    <!-- READ MORE (only in summary mode) -->
-    {!isFull && <ReadMoreButton href={readMoreLink} type="read" />}
+    {!isFull && <ArrowLink href={localePath("/about", lang)} label={t.about.readMore} />}
   </div>
 </section>
+
+<style>
+  p {
+    text-align: justify;
+  }
+</style>
